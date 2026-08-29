@@ -276,6 +276,30 @@ textarea{min-height:110px}
 </header>
 
 <div id="toast"></div>
+  
+  <div id="bannedScreen" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  background:#000;
+  color:red;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-family:Arial,sans-serif;
+">
+  <div>
+    <div style="font-size:90px;">🚫</div>
+    <h1 style="font-size:60px;color:red;">BANNED</h1>
+    <p style="font-size:20px;color:white;margin-top:15px;">
+      Your account has been banned from Glow Up Studio.
+    </p>
+    <p style="font-size:16px;color:#ff7777;margin-top:10px;">
+      Please contact the administrator if you believe this is a mistake.
+    </p>
+  </div>
+</div>
 
 <!-- HOME -->
 <section id="home" class="page active">
@@ -479,25 +503,106 @@ No notifications yet.
 <h1>👑 Admin Dashboard</h1>
 
 <div class="card">
-<p>Admin access</p>
-<input id="adminCode" type="password" placeholder="Enter admin code">
-<button class="primary" onclick="adminLogin()">Enter Admin</button>
+  <p>Admin Password</p>
+
+  <input
+    id="adminPassword"
+    type="password"
+    placeholder="Enter admin password"
+  >
+
+  <button class="primary" onclick="checkAdminPassword()">
+    Continue
+  </button>
+</div>
+
+<div id="adminCodeBox" style="display:none" class="card">
+  <p>Admin Code</p>
+
+  <input
+    id="adminCode"
+    type="password"
+    placeholder="Enter admin code"
+  >
+
+  <button class="primary" onclick="adminLogin()">
+    Enter Admin
+  </button>
 </div>
 
 <div id="adminPanel" class="admin-only">
 
-<h2>📅 Appointments</h2>
-<div id="adminAppointments"></div>
+<div id="adminPanel" class="admin-only">
 
-<h2 style="margin-top:30px">⭐ Feedback</h2>
-<div id="adminFeedback"></div>
+  <h2>📊 Admin Overview</h2>
 
-<h2 style="margin-top:30px">⚠️ Moderation</h2>
-<div class="card">
-<input id="moderationEmail" placeholder="Customer email">
-<button class="primary" onclick="warnUser()">Give Warning</button>
-<button class="primary" onclick="banUser()">Ban</button>
-<button class="primary" onclick="unbanUser()">Unban</button>
+  <div class="card">
+    <p>📅 Total Appointments: <b id="totalAppointments">0</b></p>
+    <p>⏳ Pending: <b id="pendingAppointments">0</b></p>
+    <p>✅ Accepted: <b id="acceptedAppointments">0</b></p>
+    <p>✔️ Completed: <b id="completedAppointments">0</b></p>
+    <p>❌ Cancelled: <b id="cancelledAppointments">0</b></p>
+  </div>
+
+  <h2>🗓️ Appointments</h2>
+  <div id="adminAppointments"></div>
+
+  <h2 style="margin-top:30px">⭐ Feedback</h2>
+  <div id="adminFeedback"></div>
+
+  <h2 style="margin-top:30px">⚠️ Moderation</h2>
+
+  <div class="card">
+
+    <input
+      id="moderationEmail"
+      placeholder="Customer email"
+      type="email"
+    >
+
+    <br><br>
+
+    <button class="primary" onclick="warnUser()">
+      ⚠️ Give Warning
+    </button>
+
+    <button class="primary" onclick="banUser()">
+      🚫 Ban
+    </button>
+
+    <button class="primary" onclick="unbanUser()">
+      ♻️ Unban
+    </button>
+
+  </div>
+
+  <h2 style="margin-top:30px">🔔 Customer Notification</h2>
+
+  <div class="card">
+
+    <input
+      id="notificationEmail"
+      placeholder="Customer email"
+      type="email"
+    >
+
+    <br><br>
+
+    <textarea
+      id="notificationMessage"
+      placeholder="Write notification..."
+      rows="4"
+      style="width:100%;box-sizing:border-box;"
+    ></textarea>
+
+    <br><br>
+
+    <button class="primary" onclick="sendAdminNotification()">
+      🔔 Send Notification
+    </button>
+
+  </div>
+
 </div>
 
 </div>
@@ -873,7 +978,23 @@ async function loadNotifications(){
 */
 
 const ADMIN_DEMO_CODE="GlowAdmin2026!";
+const ADMIN_PASSWORD="bismeet2011";
 
+function checkAdminPassword(){
+
+  const entered =
+    document.getElementById("adminPassword").value;
+
+  if(entered !== ADMIN_PASSWORD){
+    toast("❌ Incorrect admin password.");
+    return;
+  }
+
+  document.getElementById("adminCodeBox")
+    .style.display="block";
+
+  toast("✅ Password accepted. Enter the Admin Code.");
+}
 function adminLogin(){
 
   const entered=
@@ -1016,74 +1137,144 @@ async function loadAdminFeedback(){
 
 async function warnUser(){
 
-  const email=
+  const email =
     document.getElementById("moderationEmail")
       .value.trim();
 
-  if(!email)return;
+  if(!email){
+    toast("Enter customer email.");
+    return;
+  }
 
-  const {data}=await supabaseClient
+  const {data,error} = await supabaseClient
     .from("user_moderation")
     .select("*")
     .eq("user_email",email)
     .maybeSingle();
 
+  if(error){
+    console.error(error);
+    toast("Could not find customer.");
+    return;
+  }
+
+  let warningCount = 1;
+
   if(data){
 
-    const count=data.warning_count+1;
+    warningCount = (data.warning_count || 0) + 1;
 
-    await supabaseClient
+    const {error:updateError} = await supabaseClient
       .from("user_moderation")
       .update({
-        warning_count:count,
-        banned:count>=7,
-        updated_at:new Date().toISOString()
+        warning_count: warningCount,
+        banned: warningCount >= 7,
+        updated_at: new Date().toISOString()
       })
       .eq("user_email",email);
 
+    if(updateError){
+      console.error(updateError);
+      toast("Could not give warning.");
+      return;
+    }
+
   }else{
 
-    await supabaseClient
+    const {error:insertError} = await supabaseClient
       .from("user_moderation")
       .insert({
-        user_email:email,
-        warning_count:1
+        user_email: email,
+        warning_count: 1,
+        banned: false
       });
+
+    if(insertError){
+      console.error(insertError);
+      toast("Could not give warning.");
+      return;
+    }
   }
 
-  toast("⚠️ Warning added.");
+  await supabaseClient
+    .from("notifications")
+    .insert({
+      title: "⚠️ Account Warning",
+      message: `You have received a warning from Glow Up Studio. Warning ${warningCount}.`,
+      notification_type: "moderation",
+      customer_email: email
+    });
+
+  toast("⚠️ Warning sent to customer.");
 }
 
 async function banUser(){
 
-  const email=
+  const email =
     document.getElementById("moderationEmail")
       .value.trim();
 
-  if(!email)return;
+  if(!email){
+    toast("Enter customer email.");
+    return;
+  }
 
-  const {data}=await supabaseClient
+  const {data,error} = await supabaseClient
     .from("user_moderation")
     .select("*")
     .eq("user_email",email)
     .maybeSingle();
 
+  if(error){
+    console.error(error);
+    toast("Could not find customer.");
+    return;
+  }
+
   if(data){
-    await supabaseClient
+
+    const {error:updateError} = await supabaseClient
       .from("user_moderation")
       .update({
         banned:true,
         updated_at:new Date().toISOString()
       })
       .eq("user_email",email);
+
+    if(updateError){
+      console.error(updateError);
+      toast("Could not ban customer.");
+      return;
+    }
+
   }else{
-    await supabaseClient
+
+    const {error:insertError} = await supabaseClient
       .from("user_moderation")
       .insert({
         user_email:email,
+        warning_count:0,
         banned:true
       });
+
+    if(insertError){
+      console.error(insertError);
+      toast("Could not ban customer.");
+      return;
+    }
   }
+
+  await supabaseClient
+    .from("notifications")
+    .insert({
+      title:"🚫 Account Banned",
+      message:"Your Glow Up Studio account has been banned by the administrator.",
+      notification_type:"moderation",
+      customer_email:email
+    });
+
+  toast("🚫 Customer banned and notified.");
+}
 
   toast("🚫 User banned.");
 }
@@ -1120,57 +1311,248 @@ async function unbanUser(){
 
 function askAI(){
 
-  const input=
-    document.getElementById("aiInput");
+  const input = document.getElementById("aiInput");
+  const originalQuestion = input.value.trim();
 
-  const question=
-    input.value.trim().toLowerCase();
+  if(!originalQuestion) return;
 
-  if(!question)return;
+  const question = originalQuestion.toLowerCase();
+  const box = document.getElementById("aiMessages");
 
-  const box=
-    document.getElementById("aiMessages");
-
-  box.innerHTML+=`
+  // Show user message
+  box.innerHTML += `
     <div class="message">
-      <b>You:</b> ${escapeHTML(input.value)}
+      <b>You:</b> ${escapeHTML(originalQuestion)}
     </div>
   `;
 
-  let answer=
-    "I can help with services, prices, appointments and studio information. 💄";
+  let answer = "";
+  let pageToOpen = null;
 
-  if(question.includes("bridal"))
-    answer="Our Bridal Makeup starts at ₹24,999. 💍";
+  // 👋 GREETINGS
+  if(
+    question.includes("hi") ||
+    question.includes("hello") ||
+    question.includes("hey") ||
+    question.includes("hii")
+  ){
+    answer =
+      "Hi! 👋 Welcome to Glow Up Studio! I'm your Glow Up AI Assistant. 💄✨ I can help you with services, prices, bookings, appointments and studio information.";
+  }
 
-  else if(question.includes("party"))
-    answer="Party Makeup is ₹4,499.";
+  // 💍 BRIDAL
+  else if(
+    question.includes("bridal") ||
+    question.includes("bride")
+  ){
+    answer =
+      "💍 Bridal Makeup starts at ₹24,999. Would you like to book an appointment?";
+    pageToOpen = "services";
+  }
 
-  else if(question.includes("reception"))
-    answer="Reception Makeup is ₹7,999.";
+  // 💄 PARTY
+  else if(question.includes("party makeup")){
+    answer =
+      "💄 Party Makeup is ₹4,499.";
+    pageToOpen = "services";
+  }
 
-  else if(question.includes("engagement"))
-    answer="Engagement Makeup is ₹9,999.";
+  // ✨ RECEPTION
+  else if(question.includes("reception")){
+    answer =
+      "✨ Reception Makeup is ₹7,999.";
+    pageToOpen = "services";
+  }
 
-  else if(question.includes("book") ||
-          question.includes("appointment"))
-    answer="Go to the 📅 Book tab and choose your service, date and time.";
-    
-else if(question.includes("phone") || question.includes("number") || question.includes("contact") || question.includes("whatsapp"))
-  answer="You can contact Glow Up Studio on WhatsApp: +91 8288074744";
-  
-  else if(question.includes("price") ||
-          question.includes("service"))
-    answer="You can see all services and prices in the 💄 Services tab.";
+  // 💖 ENGAGEMENT
+  else if(question.includes("engagement")){
+    answer =
+      "💖 Engagement Makeup is ₹9,999.";
+    pageToOpen = "services";
+  }
 
-  box.innerHTML+=`
+  // 🥂 COCKTAIL
+  else if(question.includes("cocktail")){
+    answer =
+      "🥂 Cocktail Makeup is ₹3,499.";
+    pageToOpen = "services";
+  }
+
+  // 🌼 HALDI
+  else if(question.includes("haldi")){
+    answer =
+      "🌼 Haldi Makeup is ₹2,499.";
+    pageToOpen = "services";
+  }
+
+  // 📸 PRE-WEDDING
+  else if(
+    question.includes("pre wedding") ||
+    question.includes("pre-wedding") ||
+    question.includes("prewedding")
+  ){
+    answer =
+      "📸 Pre Wedding Makeup is ₹8,999.";
+    pageToOpen = "services";
+  }
+
+  // 💰 PRICES
+  else if(
+    question.includes("price") ||
+    question.includes("prices") ||
+    question.includes("cost") ||
+    question.includes("how much") ||
+    question.includes("rate")
+  ){
+    answer =
+      "💰 I can help with prices! Open the 💄 Services tab to see the available services and their prices.";
+    pageToOpen = "services";
+  }
+
+  // 💄 SERVICES
+  else if(
+    question.includes("services") ||
+    question.includes("service") ||
+    question.includes("what do you offer") ||
+    question.includes("what do you provide")
+  ){
+    answer =
+      "💄 Glow Up Studio offers makeup, facial, threading, waxing, manicure & pedicure, hair spa, smoothening, keratin, skin treatment, massage, nails, Mehndi and pre-bridal services.";
+    pageToOpen = "services";
+  }
+
+  // 📅 BOOKING
+  else if(
+    question.includes("book") ||
+    question.includes("booking") ||
+    question.includes("appointment") ||
+    question.includes("reserve")
+  ){
+    answer =
+      "📅 Sure! Open the Book tab to choose your service, appointment date and time, then submit your request.";
+    pageToOpen = "booking";
+  }
+
+  // 📱 CONTACT
+  else if(
+    question.includes("contact") ||
+    question.includes("phone") ||
+    question.includes("number") ||
+    question.includes("whatsapp") ||
+    question.includes("call")
+  ){
+    answer =
+      "📱 You can contact Glow Up Studio on WhatsApp at +91 8288074744.";
+  }
+
+  // 🖼️ GALLERY
+  else if(
+    question.includes("gallery") ||
+    question.includes("photos") ||
+    question.includes("pictures") ||
+    question.includes("images")
+  ){
+    answer =
+      "🖼️ Sure! Open the Gallery tab to see the studio's photos.";
+    pageToOpen = "gallery";
+  }
+
+  // 👤 ACCOUNT
+  else if(
+    question.includes("account") ||
+    question.includes("profile") ||
+    question.includes("my account")
+  ){
+    answer =
+      "👤 Open the Account tab to save your name and email and view your appointments.";
+    pageToOpen = "account";
+  }
+
+  // 🔔 NOTIFICATIONS
+  else if(
+    question.includes("notification") ||
+    question.includes("notifications") ||
+    question.includes("alert")
+  ){
+    answer =
+      "🔔 Open the Notifications tab to see your latest notifications.";
+    pageToOpen = "notifications";
+  }
+
+  // 💬 CHAT
+  else if(
+    question.includes("chat") ||
+    question.includes("message") ||
+    question.includes("talk to")
+  ){
+    answer =
+      "💬 You can contact the studio through the Chat tab.";
+    pageToOpen = "chat";
+  }
+
+  // ⭐ FEEDBACK
+  else if(
+    question.includes("feedback") ||
+    question.includes("review") ||
+    question.includes("rating")
+  ){
+    answer =
+      "⭐ We'd love to hear from you! Open the Feedback tab to leave a rating and message.";
+    pageToOpen = "feedback";
+  }
+
+  // 🤖 WHO ARE YOU
+  else if(
+    question.includes("who are you") ||
+    question.includes("what are you") ||
+    question.includes("your name")
+  ){
+    answer =
+      "🤖 I'm the Glow Up AI Assistant! I help customers with Glow Up Studio's services, prices, appointments and website.";
+  }
+
+  // ❤️ THANKS
+  else if(
+    question.includes("thank you") ||
+    question.includes("thanks") ||
+    question.includes("thank")
+  ){
+    answer =
+      "You're very welcome! 💖✨ I'm always here to help.";
+  }
+
+  // ❓ HELP
+  else if(
+    question.includes("help") ||
+    question.includes("what can you do")
+  ){
+    answer =
+      "🤖 I can help you with 💄 services, 💰 prices, 📅 appointments, 👤 accounts, 🔔 notifications, 🖼️ gallery, 💬 chat and 📱 contact information.";
+  }
+
+  // DEFAULT
+  else{
+    answer =
+      "🤔 I'm not sure about that yet. Try asking me something like: \"How much is bridal makeup?\", \"What services do you offer?\", or \"How do I book an appointment?\"";
+  }
+
+  // Show AI response
+  box.innerHTML += `
     <div class="message ai">
       <b>Glow Up AI:</b> ${answer}
     </div>
   `;
 
-  box.scrollTop=box.scrollHeight;
-  input.value="";
+  box.scrollTop = box.scrollHeight;
+
+  input.value = "";
+
+  // Open requested page after a short delay
+  if(pageToOpen){
+    setTimeout(() => {
+      showPage(pageToOpen);
+    }, 700);
+  }
 }
 
 /* ==============================
@@ -1234,6 +1616,35 @@ function escapeHTML(value){
 /* ==============================
    STARTUP
 ================================ */
+async function checkBanStatus(){
+
+  const account = getAccount();
+
+  if(!account || !account.email){
+    return;
+  }
+
+  const {data,error} = await supabaseClient
+    .from("user_moderation")
+    .select("banned")
+    .eq("user_email",account.email)
+    .maybeSingle();
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  if(data && data.banned === true){
+
+    document.getElementById("bannedScreen").style.display = "flex";
+
+    document.querySelectorAll("header, .page, #toast")
+      .forEach(element => {
+        element.style.display = "none";
+      });
+  }
+}
 
 window.addEventListener("load",()=>{
 
