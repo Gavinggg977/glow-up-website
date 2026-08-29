@@ -1,365 +1,814 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GLOW up Gurpreet Kaur | Makeup & Beauty Studio</title>
+<title>GLOW up Gurpreet Kaur | Makeup & Beauty Studio</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff8fb;
-            color: #2d1b24;
-        }
+:root{
+    --pink:#c85b86;
+    --dark:#28151f;
+    --soft:#fff5f9;
+    --cream:#fffaf7;
+    --gold:#c9a45c;
+    --muted:#745b66;
+}
 
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.96);
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-        }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--cream);
+    color:var(--dark);
+    overflow-x:hidden;
+}
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+body.loading{
+    overflow:hidden;
+}
 
-        nav a {
-            text-decoration: none;
-            color: #2d1b24;
-            margin-left: 25px;
-            font-weight: bold;
-        }
+/* LOADING SCREEN */
+#loader{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:linear-gradient(135deg,#fff8fb,#fce4ee);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity .7s ease,visibility .7s ease;
+}
 
-        nav a:hover {
-            color: #b84d78;
-        }
+#loader.hide{
+    opacity:0;
+    visibility:hidden;
+}
 
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, #fff0f6, #fff9fc);
-        }
+.loader-content{
+    text-align:center;
+}
 
-        .hero h1 {
-            font-size: clamp(45px, 8vw, 85px);
-            margin-bottom: 15px;
-        }
+.loader-logo{
+    width:min(260px,70vw);
+    max-height:180px;
+    object-fit:contain;
+    margin-bottom:25px;
+    animation:logoPulse 1.6s infinite alternate;
+}
 
-        .hero h1 span {
-            color: #b84d78;
-        }
+.loader-text{
+    color:var(--pink);
+    font-size:15px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
 
-        .hero p {
-            font-size: 22px;
-            margin-bottom: 30px;
-            color: #654653;
-        }
+.panda-track{
+    width:280px;
+    height:70px;
+    margin:20px auto 0;
+    position:relative;
+    overflow:hidden;
+}
 
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            background: #b84d78;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.panda{
+    position:absolute;
+    left:-70px;
+    font-size:48px;
+    animation:rollPanda 2.2s linear infinite;
+}
 
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(184,77,120,0.3);
-        }
+@keyframes rollPanda{
+    0%{left:-70px;transform:rotate(0deg);}
+    50%{transform:rotate(360deg);}
+    100%{left:300px;transform:rotate(720deg);}
+}
 
-        section {
-            padding: 80px 7%;
-        }
+@keyframes logoPulse{
+    from{transform:scale(.96);}
+    to{transform:scale(1.03);}
+}
 
-        .section-title {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 45px;
-        }
+/* HEADER */
+header{
+    position:sticky;
+    top:0;
+    z-index:500;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #f1dce5;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 6%;
+}
 
-        .about {
-            max-width: 850px;
-            margin: auto;
-            text-align: center;
-            font-size: 19px;
-            line-height: 1.8;
-        }
+.brand{
+    display:flex;
+    align-items:center;
+}
 
-        .services {
-            background: white;
-        }
+.brand img{
+    width:105px;
+    height:65px;
+    object-fit:contain;
+}
 
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+nav{
+    display:flex;
+    gap:25px;
+}
 
-        .card {
-            background: #fff8fb;
-            padding: 28px;
-            border-radius: 18px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-            transition: 0.3s;
-        }
+nav a{
+    color:var(--dark);
+    text-decoration:none;
+    font-weight:bold;
+    font-size:14px;
+}
 
-        .card:hover {
-            transform: translateY(-7px);
-        }
+nav a:hover{
+    color:var(--pink);
+}
 
-        .card h3 {
-            color: #b84d78;
-            margin-bottom: 12px;
-            font-size: 21px;
-        }
+/* HERO */
+.hero{
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    padding:80px 20px;
+    background:
+        radial-gradient(circle at 20% 20%,#f7d6e3 0,transparent 30%),
+        radial-gradient(circle at 80% 70%,#f4dfc2 0,transparent 30%),
+        linear-gradient(135deg,#fff9fb,#fff3f7);
+}
 
-        .price {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.hero-content{
+    max-width:900px;
+    animation:fadeUp 1s ease;
+}
 
-        .extra {
-            margin-top: 40px;
-            text-align: center;
-            line-height: 2;
-            font-size: 18px;
-        }
+.hero-small{
+    text-transform:uppercase;
+    letter-spacing:5px;
+    color:var(--pink);
+    font-size:13px;
+    font-weight:bold;
+}
 
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
+.hero h1{
+    font-family:Georgia,serif;
+    font-size:clamp(55px,10vw,105px);
+    line-height:.95;
+    margin:18px 0;
+}
 
-        .gallery-box {
-            height: 260px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #f7d7e4, #fff0f6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #75445a;
-            font-weight: bold;
-            padding: 20px;
-        }
+.hero h1 span{
+    color:var(--pink);
+}
 
-        .booking {
-            background: #fff0f6;
-        }
+.hero p{
+    color:var(--muted);
+    font-size:20px;
+    line-height:1.7;
+}
 
-        form {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
-        }
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 14px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-        }
+.btn{
+    display:inline-block;
+    padding:15px 30px;
+    border-radius:40px;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
+    transition:.3s;
+}
 
-        textarea {
-            height: 120px;
-            resize: vertical;
-        }
+.btn-primary{
+    background:var(--pink);
+    color:white;
+    box-shadow:0 12px 30px rgba(200,91,134,.25);
+}
 
-        form button {
-            width: 100%;
-        }
+.btn-secondary{
+    background:white;
+    color:var(--pink);
+    border:1px solid #e9b9cc;
+}
 
-        .contact {
-            text-align: center;
-        }
+.btn:hover{
+    transform:translateY(-4px);
+}
 
-        .instagram {
-            color: #b84d78;
-            font-weight: bold;
-            text-decoration: none;
-        }
+/* GENERAL */
+section{
+    padding:90px 7%;
+}
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #2d1b24;
-            color: white;
-        }
+.section-heading{
+    text-align:center;
+    margin-bottom:50px;
+}
 
-        @media (max-width: 700px) {
-            header {
-                flex-direction: column;
-                gap: 12px;
-            }
+.section-heading span{
+    color:var(--pink);
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    font-weight:bold;
+}
 
-            nav a {
-                margin: 0 7px;
-                font-size: 14px;
-            }
-        }
-    </style>
+.section-heading h2{
+    font-family:Georgia,serif;
+    font-size:45px;
+    margin-top:10px;
+}
+
+.section-heading p{
+    max-width:650px;
+    margin:15px auto;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+/* ABOUT */
+.about-box{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    font-size:19px;
+    line-height:2;
+    color:var(--muted);
+}
+
+/* SERVICES */
+.services{
+    background:white;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.service-card{
+    background:linear-gradient(145deg,#fff8fb,#fff);
+    border:1px solid #f0d9e3;
+    padding:30px 22px;
+    border-radius:24px;
+    text-align:center;
+    transition:.35s;
+    box-shadow:0 8px 30px rgba(70,30,50,.06);
+}
+
+.service-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(70,30,50,.12);
+}
+
+.service-icon{
+    font-size:35px;
+    margin-bottom:15px;
+}
+
+.service-card h3{
+    font-family:Georgia,serif;
+    color:var(--pink);
+    margin-bottom:12px;
+    font-size:21px;
+}
+
+.price{
+    font-size:20px;
+    font-weight:bold;
+}
+
+.other-services{
+    max-width:900px;
+    margin:45px auto 0;
+    padding:30px;
+    border-radius:24px;
+    background:var(--soft);
+    text-align:center;
+    line-height:2;
+    color:var(--muted);
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    max-width:1200px;
+    margin:auto;
+}
+
+.gallery-card{
+    min-height:280px;
+    border-radius:25px;
+    overflow:hidden;
+    background:linear-gradient(135deg,#f5d5e2,#fff5f9);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:20px;
+    color:#82596a;
+    font-weight:bold;
+}
+
+/* BOOKING */
+.booking{
+    background:linear-gradient(135deg,#fff1f6,#fff9f5);
+}
+
+.booking-container{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:35px;
+    max-width:1100px;
+    margin:auto;
+}
+
+.booking-info{
+    padding:35px;
+}
+
+.booking-info h3{
+    font-family:Georgia,serif;
+    font-size:35px;
+    margin-bottom:20px;
+}
+
+.booking-info p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.booking-form{
+    background:white;
+    padding:35px;
+    border-radius:25px;
+    box-shadow:0 12px 40px rgba(70,30,50,.08);
+}
+
+.form-group{
+    margin-bottom:16px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ead5de;
+    border-radius:12px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:var(--pink);
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+/* ADMIN */
+.admin{
+    background:#21131b;
+    color:white;
+}
+
+.admin .section-heading p{
+    color:#cdbbc3;
+}
+
+.admin-box{
+    max-width:1100px;
+    margin:auto;
+}
+
+.admin-note{
+    text-align:center;
+    color:#cdbbc3;
+    margin-bottom:25px;
+}
+
+.appointments{
+    display:grid;
+    gap:15px;
+}
+
+.appointment{
+    background:#30202a;
+    border:1px solid #513946;
+    border-radius:18px;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.appointment-info h4{
+    margin-bottom:8px;
+}
+
+.appointment-info p{
+    color:#cdbbc3;
+    font-size:14px;
+    line-height:1.7;
+}
+
+.status{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    margin-top:7px;
+}
+
+.pending{
+    background:#8b6b31;
+}
+
+.accepted{
+    background:#31784a;
+}
+
+.completed{
+    background:#45659a;
+}
+
+.actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.action-btn{
+    border:none;
+    border-radius:9px;
+    padding:9px 13px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.accept{
+    background:#74c98b;
+}
+
+.complete{
+    background:#8caeea;
+}
+
+.cancel{
+    background:#e37b88;
+}
+
+.empty{
+    text-align:center;
+    color:#cdbbc3;
+    padding:40px;
+    border:1px dashed #614654;
+    border-radius:18px;
+}
+
+/* CONTACT */
+.contact{
+    text-align:center;
+}
+
+.contact-card{
+    max-width:700px;
+    margin:auto;
+    background:white;
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 10px 35px rgba(70,30,50,.07);
+}
+
+.instagram{
+    display:inline-block;
+    margin-top:20px;
+    color:var(--pink);
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+    background:#21131b;
+    color:#cdbbc3;
+    text-align:center;
+    padding:30px;
+    font-size:13px;
+}
+
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(25px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* MOBILE */
+@media(max-width:800px){
+    header{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    nav{
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .booking-container{
+        grid-template-columns:1fr;
+    }
+
+    .gallery{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .appointment{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:500px){
+    section{
+        padding:65px 5%;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:58px;
+    }
+
+    .section-heading h2{
+        font-size:36px;
+    }
+
+    .loader-logo{
+        width:220px;
+    }
+}
+</style>
 </head>
 
-<body>
+<body class="loading">
 
-<header>
-    <div class="logo">
-    <img src="a_clean_elegant_luxurious_beauty_makeup_studio_l.png" alt="GLOW up Gurpreet Kaur" style="height:70px; width:auto;">
+<!-- LOADING SCREEN -->
+<div id="loader">
+    <div class="loader-content">
+
+        <img
+            class="loader-logo"
+            src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
+            alt="GLOW up Gurpreet Kaur"
+        >
+
+        <div class="loader-text">Preparing your glow...</div>
+
+        <div class="panda-track">
+            <div class="panda">🐼</div>
+        </div>
+
+    </div>
 </div>
+
+
+<!-- HEADER -->
+<header>
+
+    <a class="brand" href="#home">
+        <img
+            src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
+            alt="GLOW up Gurpreet Kaur"
+        >
+    </a>
 
     <nav>
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#gallery">Gallery</a>
         <a href="#booking">Book</a>
+        <a href="#appointments">Appointments</a>
         <a href="#contact">Contact</a>
     </nav>
+
 </header>
 
 
+<!-- HERO -->
 <section class="hero" id="home">
-    <div>
-        <h1>GLOW <span>up</span></h1>
 
-        <p>Gurpreet Kaur Makeup & Beauty Studio</p>
+    <div class="hero-content">
 
-        <p>Makeup • Beauty • Nails • Hair • Mehndi</p>
+        <div class="hero-small">
+            Makeup • Beauty • Selfcare
+        </div>
 
-        <a href="#booking" class="button">Book an Appointment</a>
+        <h1>
+            GLOW <span>up</span>
+        </h1>
+
+        <p>
+            Gurpreet Kaur Makeup & Beauty Studio
+        </p>
+
+        <p>
+            Bringing your beauty, confidence and special moments to life.
+        </p>
+
+        <div class="buttons">
+            <a class="btn btn-primary" href="#booking">
+                Book Appointment
+            </a>
+
+            <a class="btn btn-secondary" href="#services">
+                Explore Services
+            </a>
+        </div>
+
     </div>
+
 </section>
 
 
+<!-- ABOUT -->
 <section>
-    <h2 class="section-title">About Us</h2>
 
-    <div class="about">
+    <div class="section-heading">
+        <span>Welcome</span>
+        <h2>Your Beauty, Your Glow</h2>
+
+        <p>
+            Professional beauty and makeup services designed for
+            weddings, celebrations and your everyday glow.
+        </p>
+    </div>
+
+    <div class="about-box">
+
         <p>
             Welcome to <b>GLOW up Gurpreet Kaur</b>.
-            We provide professional makeup and beauty services
-            for your special occasions and everyday glow.
+            From bridal transformations to beautiful everyday
+            beauty services, we are here to make every appointment
+            feel special.
         </p>
 
-        <br>
-
-        <p>
-            From bridal and party makeup to hair, nails, skincare,
-            mehndi and pre-bridal services, our goal is to help
-            you look and feel your best.
-        </p>
     </div>
+
 </section>
 
 
+<!-- SERVICES -->
 <section class="services" id="services">
 
-    <h2 class="section-title">Makeup Packages</h2>
+    <div class="section-heading">
+        <span>Our Services</span>
+        <h2>Makeup Packages</h2>
+
+        <p>
+            Choose the perfect service for your special occasion.
+        </p>
+    </div>
 
     <div class="service-grid">
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">👰</div>
             <h3>Bridal Makeup</h3>
-            <p class="price">Starts at ₹24,999</p>
+            <div class="price">Starts at ₹24,999</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">✨</div>
             <h3>Party Makeup</h3>
-            <p class="price">₹4,499</p>
+            <div class="price">₹4,499</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">💎</div>
             <h3>Reception Makeup</h3>
-            <p class="price">₹7,999</p>
+            <div class="price">₹7,999</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">💍</div>
             <h3>Engagement Makeup</h3>
-            <p class="price">₹9,999</p>
+            <div class="price">₹9,999</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">🥂</div>
             <h3>Cocktail Makeup</h3>
-            <p class="price">₹3,499</p>
+            <div class="price">₹3,499</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">🌼</div>
             <h3>Haldi Makeup</h3>
-            <p class="price">₹2,499</p>
+            <div class="price">₹2,499</div>
         </div>
 
-        <div class="card">
+        <div class="service-card">
+            <div class="service-icon">📸</div>
             <h3>Pre-Wedding Makeup</h3>
-            <p class="price">₹8,999</p>
+            <div class="price">₹8,999</div>
         </div>
 
     </div>
 
-    <div class="extra">
-        <b>Other Services</b><br>
-        Facial • Threading • Full Body Waxing • Pedicure & Manicure<br>
-        Hair Spa • Smoothening • Keratin • Skin Treatment<br>
-        Head Massage • Body Massage • Head Wash & Blow Dry<br>
-        Pre-Bridal Services • Nails • Mehndi
+    <div class="other-services">
+
+        <b>More Beauty Services</b>
+
+        <br>
+
+        Facial • Threading • Full Body Waxing • Pedicure & Manicure
+        • Hair Spa • Smoothening • Keratin • Skin Treatment
+        • Head Massage • Body Massage • Head Wash & Blow Dry
+        • Pre-Bridal Services • All Type Makeups • Nails • Mehndi
+
     </div>
 
 </section>
 
 
+<!-- GALLERY -->
 <section id="gallery">
 
-    <h2 class="section-title">Our Work</h2>
+    <div class="section-heading">
+        <span>Portfolio</span>
+        <h2>Our Work</h2>
+
+        <p>
+            Your beautiful moments deserve beautiful memories.
+        </p>
+    </div>
 
     <div class="gallery">
 
-        <div class="gallery-box">
-            Add your makeup photo here
+        <div class="gallery-card">
+            📸<br><br>
+            Add Bridal Makeup Photo
         </div>
 
-        <div class="gallery-box">
-            Add your bridal photo here
+        <div class="gallery-card">
+            💄<br><br>
+            Add Makeup Photo
         </div>
 
-        <div class="gallery-box">
-            Add your hairstyle photo here
+        <div class="gallery-card">
+            💅<br><br>
+            Add Nails Photo
         </div>
 
-        <div class="gallery-box">
-            Add your nail / mehndi photo here
+        <div class="gallery-card">
+            🌸<br><br>
+            Add Mehndi / Beauty Photo
         </div>
 
     </div>
@@ -367,77 +816,157 @@
 </section>
 
 
+<!-- BOOKING -->
 <section class="booking" id="booking">
 
-    <h2 class="section-title">Book an Appointment</h2>
+    <div class="section-heading">
 
-    <form onsubmit="bookAppointment(event)">
+        <span>Appointments</span>
 
-        <input
-            type="text"
-            id="name"
-            placeholder="Your Name"
-            required
-        >
+        <h2>Book Your Glow</h2>
 
-        <input
-            type="tel"
-            id="phone"
-            placeholder="Phone Number"
-            required
-        >
+        <p>
+            Send an appointment request and choose your preferred service.
+        </p>
 
-        <input
-            type="date"
-            id="date"
-            required
-        >
+    </div>
 
-        <select id="service" required>
-            <option value="">Select a Service</option>
-            <option>Bridal Makeup</option>
-            <option>Party Makeup</option>
-            <option>Reception Makeup</option>
-            <option>Engagement Makeup</option>
-            <option>Cocktail Makeup</option>
-            <option>Haldi Makeup</option>
-            <option>Pre-Wedding Makeup</option>
-            <option>Other Beauty Service</option>
-        </select>
+    <div class="booking-container">
 
-        <textarea
-            id="message"
-            placeholder="Anything else you'd like us to know?"
-        ></textarea>
+        <div class="booking-info">
 
-        <button class="button" type="submit">
-            Send Booking Request
-        </button>
+            <h3>Let's create your perfect look ✨</h3>
 
-    </form>
+            <p>
+                Fill out the form and your appointment will appear
+                in the appointment manager below.
+            </p>
+
+            <br>
+
+            <p>
+                Please provide the correct contact information so
+                the studio can confirm your appointment.
+            </p>
+
+        </div>
+
+
+        <form class="booking-form" onsubmit="createAppointment(event)">
+
+            <div class="form-group">
+                <label>Your Name</label>
+                <input id="customerName" type="text" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input id="customerPhone" type="tel" required>
+            </div>
+
+            <div class="form-group">
+                <label>Appointment Date</label>
+                <input id="appointmentDate" type="date" required>
+            </div>
+
+            <div class="form-group">
+                <label>Service</label>
+
+                <select id="appointmentService" required>
+
+                    <option value="">
+                        Select a service
+                    </option>
+
+                    <option>Bridal Makeup — ₹24,999+</option>
+                    <option>Party Makeup — ₹4,499</option>
+                    <option>Reception Makeup — ₹7,999</option>
+                    <option>Engagement Makeup — ₹9,999</option>
+                    <option>Cocktail Makeup — ₹3,499</option>
+                    <option>Haldi Makeup — ₹2,499</option>
+                    <option>Pre-Wedding Makeup — ₹8,999</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Message</label>
+
+                <textarea
+                    id="appointmentMessage"
+                    placeholder="Tell us anything important about your appointment..."
+                ></textarea>
+
+            </div>
+
+            <button class="btn btn-primary" type="submit">
+                Send Appointment Request
+            </button>
+
+        </form>
+
+    </div>
 
 </section>
 
 
+<!-- APPOINTMENT MANAGER -->
+<section class="admin" id="appointments">
+
+    <div class="section-heading">
+
+        <span>Studio Manager</span>
+
+        <h2>Appointments</h2>
+
+        <p>
+            Accept, complete or cancel appointment requests.
+        </p>
+
+    </div>
+
+    <div class="admin-box">
+
+        <div class="admin-note">
+            Demo appointment manager — saved in this browser only.
+        </div>
+
+        <div id="appointmentList" class="appointments"></div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
 <section class="contact" id="contact">
 
-    <h2 class="section-title">Contact Us</h2>
+    <div class="section-heading">
 
-    <p><b>GLOW up Gurpreet Kaur</b></p>
+        <span>Get In Touch</span>
 
-    <br>
+        <h2>Contact GLOW up</h2>
 
-    <p>For appointments and enquiries, contact us directly.</p>
+    </div>
 
-    <br>
+    <div class="contact-card">
 
-    <a
-        class="instagram"
-        href="https://www.instagram.com/gurpreetmakeup204/"
-        target="_blank"
-    >
-        Instagram: @gurpreetmakeup204
-    </a>
+        <h3>GLOW up Gurpreet Kaur</h3>
+
+        <p>
+            Makeup & Beauty Studio
+        </p>
+
+        <a
+            class="instagram"
+            href="https://www.instagram.com/gurpreetmakeup204/"
+            target="_blank"
+        >
+            Instagram: @gurpreetmakeup204
+        </a>
+
+    </div>
 
 </section>
 
@@ -449,25 +978,272 @@
 
 <script>
 
-    function bookAppointment(event) {
+/* LOADING SCREEN */
+window.addEventListener("load", function(){
 
-        event.preventDefault();
+    setTimeout(function(){
 
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const date = document.getElementById("date").value;
-        const service = document.getElementById("service").value;
+        document.getElementById("loader").classList.add("hide");
 
-        alert(
-            "Thank you, " + name +
-            "! Your booking request for " +
-            service +
-            " on " +
-            date +
-            " has been received."
-        );
+        document.body.classList.remove("loading");
+
+    }, 4000);
+
+});
+
+
+/* APPOINTMENT STORAGE */
+
+let appointments =
+    JSON.parse(localStorage.getItem("glowUpAppointments")) || [];
+
+
+/* CREATE APPOINTMENT */
+
+function createAppointment(event){
+
+    event.preventDefault();
+
+    const appointment = {
+
+        id: Date.now(),
+
+        name:
+            document.getElementById("customerName").value,
+
+        phone:
+            document.getElementById("customerPhone").value,
+
+        date:
+            document.getElementById("appointmentDate").value,
+
+        service:
+            document.getElementById("appointmentService").value,
+
+        message:
+            document.getElementById("appointmentMessage").value,
+
+        status:
+            "Pending"
+
+    };
+
+
+    appointments.push(appointment);
+
+    saveAppointments();
+
+    event.target.reset();
+
+    alert(
+        "Appointment request sent successfully! 💄✨"
+    );
+
+    renderAppointments();
+
+    document
+        .getElementById("appointments")
+        .scrollIntoView();
+
+}
+
+
+/* SAVE */
+
+function saveAppointments(){
+
+    localStorage.setItem(
+        "glowUpAppointments",
+        JSON.stringify(appointments)
+    );
+
+}
+
+
+/* UPDATE STATUS */
+
+function updateAppointment(id, status){
+
+    appointments =
+        appointments.map(function(appointment){
+
+            if(appointment.id === id){
+
+                appointment.status = status;
+
+            }
+
+            return appointment;
+
+        });
+
+    saveAppointments();
+
+    renderAppointments();
+
+}
+
+
+/* CANCEL */
+
+function cancelAppointment(id){
+
+    appointments =
+        appointments.filter(function(appointment){
+
+            return appointment.id !== id;
+
+        });
+
+    saveAppointments();
+
+    renderAppointments();
+
+}
+
+
+/* DISPLAY */
+
+function renderAppointments(){
+
+    const list =
+        document.getElementById("appointmentList");
+
+
+    if(appointments.length === 0){
+
+        list.innerHTML = `
+            <div class="empty">
+                No appointments yet 📅
+            </div>
+        `;
+
+        return;
 
     }
+
+
+    list.innerHTML =
+        appointments.map(function(appointment){
+
+            let statusClass =
+                appointment.status.toLowerCase();
+
+
+            return `
+
+                <div class="appointment">
+
+                    <div class="appointment-info">
+
+                        <h4>
+                            ${escapeHTML(appointment.name)}
+                        </h4>
+
+                        <p>
+                            📞 ${escapeHTML(appointment.phone)}
+                            <br>
+
+                            📅 ${escapeHTML(appointment.date)}
+                            <br>
+
+                            💄 ${escapeHTML(appointment.service)}
+
+                            ${
+                                appointment.message
+                                ?
+                                `<br>💬 ${escapeHTML(appointment.message)}`
+                                :
+                                ""
+                            }
+
+                        </p>
+
+                        <span class="status ${statusClass}">
+                            ${appointment.status}
+                        </span>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        ${
+                            appointment.status === "Pending"
+                            ?
+                            `
+                            <button
+                                class="action-btn accept"
+                                onclick="updateAppointment(${appointment.id}, 'Accepted')"
+                            >
+                                Accept
+                            </button>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        ${
+                            appointment.status === "Accepted"
+                            ?
+                            `
+                            <button
+                                class="action-btn complete"
+                                onclick="updateAppointment(${appointment.id}, 'Completed')"
+                            >
+                                Complete
+                            </button>
+                            `
+                            :
+                            ""
+                        }
+
+
+                        ${
+                            appointment.status !== "Completed"
+                            ?
+                            `
+                            <button
+                                class="action-btn cancel"
+                                onclick="cancelAppointment(${appointment.id})"
+                            >
+                                Cancel
+                            </button>
+                            `
+                            :
+                            ""
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* SECURITY HELPER */
+
+function escapeHTML(value){
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* INITIAL DISPLAY */
+
+renderAppointments();
 
 </script>
 
