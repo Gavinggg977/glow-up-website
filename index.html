@@ -2,777 +2,561 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GLOW up Gurpreet Kaur | Makeup & Beauty Studio</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GLOW up Gurpreet Kaur</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    scroll-behavior:smooth;
-}
-
-:root{
-    --pink:#c85b86;
-    --dark:#28151f;
-    --soft:#fff5f9;
-    --cream:#fffaf7;
-    --gold:#c9a45c;
-    --muted:#745b66;
-}
-
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:var(--cream);
-    color:var(--dark);
-    overflow-x:hidden;
+font-family:Arial,sans-serif;
+background:#fff8fb;
+color:#291821;
 }
+body.loading{overflow:hidden}
 
-body.loading{
-    overflow:hidden;
-}
-
-/* LOADING SCREEN */
 #loader{
-    position:fixed;
-    inset:0;
-    z-index:99999;
-    background:linear-gradient(135deg,#fff8fb,#fce4ee);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:opacity .7s ease,visibility .7s ease;
+position:fixed;
+inset:0;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+background:
+radial-gradient(circle at 20% 20%,#f6d4e2,transparent 30%),
+radial-gradient(circle at 80% 80%,#ead8bd,transparent 30%),
+linear-gradient(135deg,#fffafd,#fbeaf2);
+transition:.8s;
 }
+#loader.hide{opacity:0;visibility:hidden}
 
-#loader.hide{
-    opacity:0;
-    visibility:hidden;
+.loaderBox{text-align:center;position:relative}
+.loaderLogo{
+width:210px;
+height:170px;
+object-fit:contain;
+animation:glow 1.5s infinite alternate;
 }
-
-.loader-content{
-    text-align:center;
+.loaderTitle{
+font:42px Georgia,serif;
+letter-spacing:5px;
 }
-
-.loader-logo{
-    width:min(260px,70vw);
-    max-height:180px;
-    object-fit:contain;
-    margin-bottom:25px;
-    animation:logoPulse 1.6s infinite alternate;
+.loaderTitle span{color:#c95785}
+.loaderText{
+margin:10px 0;
+letter-spacing:3px;
+color:#765866;
+font-size:13px;
 }
-
-.loader-text{
-    color:var(--pink);
-    font-size:15px;
-    letter-spacing:3px;
-    text-transform:uppercase;
+.pandaRoad{
+width:280px;
+height:60px;
+overflow:hidden;
+position:relative;
+margin:auto;
 }
-
-.panda-track{
-    width:280px;
-    height:70px;
-    margin:20px auto 0;
-    position:relative;
-    overflow:hidden;
-}
-
 .panda{
-    position:absolute;
-    left:-70px;
-    font-size:48px;
-    animation:rollPanda 2.2s linear infinite;
+position:absolute;
+font-size:45px;
+left:-60px;
+animation:roll 2s linear infinite;
+}
+.progress{
+width:240px;
+height:5px;
+background:#efd6e1;
+border-radius:20px;
+overflow:hidden;
+margin:8px auto;
+}
+.progressBar{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#d77da2,#c95785,#d2ad67);
+animation:progress 5s linear forwards;
+}
+.sparkles{
+position:absolute;
+inset:0;
+pointer-events:none;
+font-size:25px;
+color:#c95785;
+}
+.sparkles i{
+position:absolute;
+animation:float 3s infinite ease-in-out;
+}
+.s1{top:15%;left:15%}.s2{top:25%;right:15%}
+.s3{bottom:20%;left:18%}.s4{bottom:25%;right:18%}
+
+@keyframes roll{
+0%{left:-60px;transform:rotate(0)}
+50%{transform:rotate(360deg)}
+100%{left:290px;transform:rotate(720deg)}
+}
+@keyframes progress{to{width:100%}}
+@keyframes glow{
+from{transform:scale(.96);filter:drop-shadow(0 5px 10px #d989a7)}
+to{transform:scale(1.05);filter:drop-shadow(0 8px 28px #c95785)}
+}
+@keyframes float{
+50%{transform:translateY(-25px)rotate(20deg);opacity:.4}
 }
 
-@keyframes rollPanda{
-    0%{left:-70px;transform:rotate(0deg);}
-    50%{transform:rotate(360deg);}
-    100%{left:300px;transform:rotate(720deg);}
-}
-
-@keyframes logoPulse{
-    from{transform:scale(.96);}
-    to{transform:scale(1.03);}
-}
-
-/* HEADER */
 header{
-    position:sticky;
-    top:0;
-    z-index:500;
-    background:rgba(255,255,255,.94);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid #f1dce5;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:10px 6%;
+position:sticky;
+top:0;
+z-index:1000;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:10px 6%;
+background:#fffffff2;
+backdrop-filter:blur(15px);
+border-bottom:1px solid #f0d9e3;
 }
-
-.brand{
-    display:flex;
-    align-items:center;
-}
-
-.brand img{
-    width:105px;
-    height:65px;
-    object-fit:contain;
-}
-
-nav{
-    display:flex;
-    gap:25px;
-}
-
+.logo img{width:110px;height:65px;object-fit:contain}
+nav{display:flex;gap:22px;flex-wrap:wrap}
 nav a{
-    color:var(--dark);
-    text-decoration:none;
-    font-weight:bold;
-    font-size:14px;
+text-decoration:none;
+color:#291821;
+font-weight:bold;
+font-size:14px;
 }
+nav a:hover{color:#c95785}
 
-nav a:hover{
-    color:var(--pink);
-}
-
-/* HERO */
 .hero{
-    min-height:88vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-    padding:80px 20px;
-    background:
-        radial-gradient(circle at 20% 20%,#f7d6e3 0,transparent 30%),
-        radial-gradient(circle at 80% 70%,#f4dfc2 0,transparent 30%),
-        linear-gradient(135deg,#fff9fb,#fff3f7);
+min-height:90vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:50px 20px;
+background:
+radial-gradient(circle at 10% 20%,#f5d3e1,transparent 30%),
+radial-gradient(circle at 90% 80%,#efdfc5,transparent 30%);
 }
-
-.hero-content{
-    max-width:900px;
-    animation:fadeUp 1s ease;
+.hero small{
+color:#c95785;
+letter-spacing:5px;
+font-weight:bold;
 }
-
-.hero-small{
-    text-transform:uppercase;
-    letter-spacing:5px;
-    color:var(--pink);
-    font-size:13px;
-    font-weight:bold;
-}
-
 .hero h1{
-    font-family:Georgia,serif;
-    font-size:clamp(55px,10vw,105px);
-    line-height:.95;
-    margin:18px 0;
+font:clamp(60px,10vw,110px) Georgia,serif;
+margin:18px 0;
 }
-
-.hero h1 span{
-    color:var(--pink);
-}
-
+.hero h1 span{color:#c95785}
 .hero p{
-    color:var(--muted);
-    font-size:20px;
-    line-height:1.7;
+font-size:20px;
+color:#765866;
+line-height:1.7;
 }
-
-.buttons{
-    margin-top:35px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
+.buttons{margin-top:30px}
 .btn{
-    display:inline-block;
-    padding:15px 30px;
-    border-radius:40px;
-    text-decoration:none;
-    border:none;
-    cursor:pointer;
-    font-weight:bold;
-    font-size:15px;
-    transition:.3s;
+display:inline-block;
+padding:15px 28px;
+border-radius:30px;
+border:0;
+cursor:pointer;
+text-decoration:none;
+font-weight:bold;
+margin:5px;
+transition:.3s;
+}
+.primary{background:#c95785;color:white}
+.secondary{background:white;color:#c95785;border:1px solid #e5b8ca}
+.btn:hover{transform:translateY(-4px)}
+
+section{padding:85px 7%}
+.heading{text-align:center;margin-bottom:45px}
+.heading span{
+color:#c95785;
+font-size:12px;
+letter-spacing:4px;
+font-weight:bold;
+}
+.heading h2{
+font:45px Georgia,serif;
+margin-top:10px;
+}
+.heading p{
+color:#765866;
+max-width:650px;
+margin:15px auto;
+line-height:1.7;
 }
 
-.btn-primary{
-    background:var(--pink);
-    color:white;
-    box-shadow:0 12px 30px rgba(200,91,134,.25);
+.services{background:white}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+max-width:1200px;
+margin:auto;
+}
+.card{
+background:linear-gradient(145deg,#fff8fb,#fff);
+border:1px solid #f0d9e3;
+border-radius:22px;
+padding:30px 20px;
+text-align:center;
+box-shadow:0 10px 30px #3c18250d;
+transition:.3s;
+}
+.card:hover{transform:translateY(-8px)}
+.card .icon{font-size:35px}
+.card h3{
+font:21px Georgia,serif;
+color:#c95785;
+margin:12px 0;
+}
+.price{font-weight:bold;font-size:19px}
+
+.more{
+max-width:900px;
+margin:40px auto 0;
+padding:30px;
+background:#fff3f7;
+border-radius:22px;
+text-align:center;
+color:#765866;
+line-height:2;
 }
 
-.btn-secondary{
-    background:white;
-    color:var(--pink);
-    border:1px solid #e9b9cc;
-}
-
-.btn:hover{
-    transform:translateY(-4px);
-}
-
-/* GENERAL */
-section{
-    padding:90px 7%;
-}
-
-.section-heading{
-    text-align:center;
-    margin-bottom:50px;
-}
-
-.section-heading span{
-    color:var(--pink);
-    text-transform:uppercase;
-    letter-spacing:3px;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.section-heading h2{
-    font-family:Georgia,serif;
-    font-size:45px;
-    margin-top:10px;
-}
-
-.section-heading p{
-    max-width:650px;
-    margin:15px auto;
-    color:var(--muted);
-    line-height:1.7;
-}
-
-/* ABOUT */
-.about-box{
-    max-width:900px;
-    margin:auto;
-    text-align:center;
-    font-size:19px;
-    line-height:2;
-    color:var(--muted);
-}
-
-/* SERVICES */
-.services{
-    background:white;
-}
-
-.service-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:22px;
-    max-width:1200px;
-    margin:auto;
-}
-
-.service-card{
-    background:linear-gradient(145deg,#fff8fb,#fff);
-    border:1px solid #f0d9e3;
-    padding:30px 22px;
-    border-radius:24px;
-    text-align:center;
-    transition:.35s;
-    box-shadow:0 8px 30px rgba(70,30,50,.06);
-}
-
-.service-card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 18px 40px rgba(70,30,50,.12);
-}
-
-.service-icon{
-    font-size:35px;
-    margin-bottom:15px;
-}
-
-.service-card h3{
-    font-family:Georgia,serif;
-    color:var(--pink);
-    margin-bottom:12px;
-    font-size:21px;
-}
-
-.price{
-    font-size:20px;
-    font-weight:bold;
-}
-
-.other-services{
-    max-width:900px;
-    margin:45px auto 0;
-    padding:30px;
-    border-radius:24px;
-    background:var(--soft);
-    text-align:center;
-    line-height:2;
-    color:var(--muted);
-}
-
-/* GALLERY */
 .gallery{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    max-width:1200px;
-    margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:18px;
+max-width:1100px;
+margin:auto;
+}
+.gallery div{
+height:260px;
+border-radius:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:linear-gradient(135deg,#f5d4e1,#fff);
+color:#765866;
+font-weight:bold;
 }
 
-.gallery-card{
-    min-height:280px;
-    border-radius:25px;
-    overflow:hidden;
-    background:linear-gradient(135deg,#f5d5e2,#fff5f9);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:20px;
-    color:#82596a;
-    font-weight:bold;
-}
-
-/* BOOKING */
 .booking{
-    background:linear-gradient(135deg,#fff1f6,#fff9f5);
+background:linear-gradient(135deg,#fff0f6,#fffaf4);
 }
-
-.booking-container{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:35px;
-    max-width:1100px;
-    margin:auto;
+.bookingBox{
+max-width:1100px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:30px;
 }
-
-.booking-info{
-    padding:35px;
+.info{padding:30px}
+.info h3{font:36px Georgia,serif;margin-bottom:20px}
+.info p{color:#765866;line-height:1.8}
+.form{
+background:white;
+padding:30px;
+border-radius:25px;
+box-shadow:0 12px 40px #3c18250d;
 }
-
-.booking-info h3{
-    font-family:Georgia,serif;
-    font-size:35px;
-    margin-bottom:20px;
+.field{margin-bottom:15px}
+.field label{
+display:block;
+font-size:13px;
+font-weight:bold;
+margin-bottom:6px;
 }
-
-.booking-info p{
-    color:var(--muted);
-    line-height:1.8;
-}
-
-.booking-form{
-    background:white;
-    padding:35px;
-    border-radius:25px;
-    box-shadow:0 12px 40px rgba(70,30,50,.08);
-}
-
-.form-group{
-    margin-bottom:16px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:7px;
-    font-size:13px;
-    font-weight:bold;
-}
-
 input,select,textarea{
-    width:100%;
-    padding:14px;
-    border:1px solid #ead5de;
-    border-radius:12px;
-    font-size:15px;
-    outline:none;
+width:100%;
+padding:13px;
+border:1px solid #ead4de;
+border-radius:10px;
+font-size:15px;
 }
+textarea{min-height:90px;resize:vertical}
 
-input:focus,select:focus,textarea:focus{
-    border-color:var(--pink);
+.account{background:#fff}
+.accountBox{
+max-width:700px;
+margin:auto;
+background:#fff8fb;
+padding:35px;
+border-radius:25px;
 }
-
-textarea{
-    min-height:100px;
-    resize:vertical;
+.tabs{
+display:flex;
+gap:10px;
+margin-bottom:20px;
 }
-
-/* ADMIN */
-.admin{
-    background:#21131b;
-    color:white;
+.tabs button{
+flex:1;
+padding:12px;
+border:0;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
 }
+.tabActive{background:#c95785;color:white}
 
-.admin .section-heading p{
-    color:#cdbbc3;
+.dashboard{
+background:#21131b;
+color:white;
 }
-
-.admin-box{
-    max-width:1100px;
-    margin:auto;
-}
-
-.admin-note{
-    text-align:center;
-    color:#cdbbc3;
-    margin-bottom:25px;
-}
-
+.dashboard .heading p{color:#cbb9c2}
 .appointments{
-    display:grid;
-    gap:15px;
+max-width:1100px;
+margin:auto;
+display:grid;
+gap:15px;
 }
-
 .appointment{
-    background:#30202a;
-    border:1px solid #513946;
-    border-radius:18px;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:20px;
+background:#30202a;
+border:1px solid #513946;
+padding:20px;
+border-radius:18px;
+display:flex;
+justify-content:space-between;
+gap:20px;
+align-items:center;
 }
-
-.appointment-info h4{
-    margin-bottom:8px;
+.appointment p{color:#cbb9c2;line-height:1.7}
+.actions{display:flex;gap:7px;flex-wrap:wrap}
+.action{
+border:0;
+padding:9px 13px;
+border-radius:9px;
+font-weight:bold;
+cursor:pointer;
 }
-
-.appointment-info p{
-    color:#cdbbc3;
-    font-size:14px;
-    line-height:1.7;
-}
-
+.accept{background:#72c78a}
+.complete{background:#89a9e4}
+.cancel{background:#df7886}
 .status{
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
-    margin-top:7px;
+display:inline-block;
+padding:5px 10px;
+border-radius:20px;
+font-size:11px;
+margin-top:7px;
+}
+.pending{background:#86692f}
+.accepted{background:#32764a}
+.completed{background:#46669b}
+
+.chat{
+background:#fff5f9;
+}
+.chatBox{
+max-width:800px;
+margin:auto;
+background:white;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 10px 35px #3c18250d;
+}
+.messages{
+height:300px;
+overflow-y:auto;
+padding:20px;
+}
+.message{
+padding:10px 14px;
+background:#fff0f5;
+border-radius:15px;
+margin-bottom:10px;
+max-width:75%;
+}
+.chatForm{
+display:flex;
+gap:10px;
+padding:15px;
+border-top:1px solid #eee;
+}
+.chatForm input{flex:1}
+
+.reviews{text-align:center}
+.reviewGrid{
+max-width:1000px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+}
+.review{
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 8px 30px #3c18250d;
+}
+.stars{color:#c9a45c;font-size:20px;margin-bottom:10px}
+
+.contact{text-align:center}
+.contactBox{
+max-width:700px;
+margin:auto;
+padding:40px;
+background:white;
+border-radius:25px;
+box-shadow:0 10px 30px #3c18250d;
+}
+.contactBox a{
+display:inline-block;
+margin-top:20px;
+color:#c95785;
+font-weight:bold;
+text-decoration:none;
 }
 
-.pending{
-    background:#8b6b31;
-}
-
-.accepted{
-    background:#31784a;
-}
-
-.completed{
-    background:#45659a;
-}
-
-.actions{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.action-btn{
-    border:none;
-    border-radius:9px;
-    padding:9px 13px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.accept{
-    background:#74c98b;
-}
-
-.complete{
-    background:#8caeea;
-}
-
-.cancel{
-    background:#e37b88;
-}
-
-.empty{
-    text-align:center;
-    color:#cdbbc3;
-    padding:40px;
-    border:1px dashed #614654;
-    border-radius:18px;
-}
-
-/* CONTACT */
-.contact{
-    text-align:center;
-}
-
-.contact-card{
-    max-width:700px;
-    margin:auto;
-    background:white;
-    border-radius:25px;
-    padding:40px;
-    box-shadow:0 10px 35px rgba(70,30,50,.07);
-}
-
-.instagram{
-    display:inline-block;
-    margin-top:20px;
-    color:var(--pink);
-    font-weight:bold;
-    text-decoration:none;
-}
-
-/* FOOTER */
 footer{
-    background:#21131b;
-    color:#cdbbc3;
-    text-align:center;
-    padding:30px;
-    font-size:13px;
+background:#21131b;
+color:#cbb9c2;
+padding:30px;
+text-align:center;
+font-size:13px;
 }
 
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(25px);}
-    to{opacity:1;transform:translateY(0);}
-}
+.hidden{display:none!important}
 
-/* MOBILE */
 @media(max-width:800px){
-    header{
-        flex-direction:column;
-        gap:5px;
-    }
-
-    nav{
-        gap:12px;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    nav a{
-        font-size:12px;
-    }
-
-    .booking-container{
-        grid-template-columns:1fr;
-    }
-
-    .gallery{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .appointment{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-}
-
-@media(max-width:500px){
-    section{
-        padding:65px 5%;
-    }
-
-    .gallery{
-        grid-template-columns:1fr;
-    }
-
-    .hero h1{
-        font-size:58px;
-    }
-
-    .section-heading h2{
-        font-size:36px;
-    }
-
-    .loader-logo{
-        width:220px;
-    }
+header{flex-direction:column}
+nav{justify-content:center;gap:12px}
+.bookingBox{grid-template-columns:1fr}
+.appointment{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
 
 <body class="loading">
 
-<!-- LOADING SCREEN -->
+<!-- LOADING -->
 <div id="loader">
-    <div class="loader-content">
+<div class="sparkles">
+<i class="s1">✦</i>
+<i class="s2">✧</i>
+<i class="s3">♡</i>
+<i class="s4">✦</i>
+</div>
 
-        <img
-            class="loader-logo"
-            src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
-            alt="GLOW up Gurpreet Kaur"
-        >
+<div class="loaderBox">
+<img class="loaderLogo"
+src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
+alt="GLOW up Gurpreet Kaur">
 
-        <div class="loader-text">Preparing your glow...</div>
+<div class="loaderTitle">GLOW <span>up</span></div>
+<div class="loaderText">PREPARING YOUR GLOW...</div>
 
-        <div class="panda-track">
-            <div class="panda">🐼</div>
-        </div>
+<div class="pandaRoad">
+<div class="panda">🐼</div>
+</div>
 
-    </div>
+<div class="progress">
+<div class="progressBar"></div>
+</div>
+</div>
 </div>
 
 
 <!-- HEADER -->
 <header>
+<a class="logo" href="#home">
+<img src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
+alt="GLOW up Gurpreet Kaur">
+</a>
 
-    <a class="brand" href="#home">
-        <img
-            src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
-            alt="GLOW up Gurpreet Kaur"
-        >
-    </a>
-
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#booking">Book</a>
-        <a href="#appointments">Appointments</a>
-        <a href="#contact">Contact</a>
-    </nav>
-
+<nav>
+<a href="#home">Home</a>
+<a href="#services">Services</a>
+<a href="#gallery">Gallery</a>
+<a href="#booking">Book</a>
+<a href="#account">Login</a>
+<a href="#chat">Chat</a>
+<a href="#dashboard">Admin</a>
+<a href="#contact">Contact</a>
+</nav>
 </header>
 
 
-<!-- HERO -->
+<!-- HOME -->
 <section class="hero" id="home">
+<div>
+<small>MAKEUP • BEAUTY • SELFCARE</small>
 
-    <div class="hero-content">
+<h1>GLOW <span>up</span></h1>
 
-        <div class="hero-small">
-            Makeup • Beauty • Selfcare
-        </div>
+<p>Gurpreet Kaur Makeup & Beauty Studio</p>
+<p>Beauty made for your most beautiful moments.</p>
 
-        <h1>
-            GLOW <span>up</span>
-        </h1>
-
-        <p>
-            Gurpreet Kaur Makeup & Beauty Studio
-        </p>
-
-        <p>
-            Bringing your beauty, confidence and special moments to life.
-        </p>
-
-        <div class="buttons">
-            <a class="btn btn-primary" href="#booking">
-                Book Appointment
-            </a>
-
-            <a class="btn btn-secondary" href="#services">
-                Explore Services
-            </a>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ABOUT -->
-<section>
-
-    <div class="section-heading">
-        <span>Welcome</span>
-        <h2>Your Beauty, Your Glow</h2>
-
-        <p>
-            Professional beauty and makeup services designed for
-            weddings, celebrations and your everyday glow.
-        </p>
-    </div>
-
-    <div class="about-box">
-
-        <p>
-            Welcome to <b>GLOW up Gurpreet Kaur</b>.
-            From bridal transformations to beautiful everyday
-            beauty services, we are here to make every appointment
-            feel special.
-        </p>
-
-    </div>
-
+<div class="buttons">
+<a class="btn primary" href="#booking">Book Appointment</a>
+<a class="btn secondary" href="#services">Explore Services</a>
+</div>
+</div>
 </section>
 
 
 <!-- SERVICES -->
 <section class="services" id="services">
 
-    <div class="section-heading">
-        <span>Our Services</span>
-        <h2>Makeup Packages</h2>
+<div class="heading">
+<span>OUR SERVICES</span>
+<h2>Makeup Packages</h2>
+<p>Choose your perfect look for every special occasion.</p>
+</div>
 
-        <p>
-            Choose the perfect service for your special occasion.
-        </p>
-    </div>
+<div class="grid">
 
-    <div class="service-grid">
+<div class="card">
+<div class="icon">👰</div>
+<h3>Bridal Makeup</h3>
+<div class="price">₹24,999+</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">👰</div>
-            <h3>Bridal Makeup</h3>
-            <div class="price">Starts at ₹24,999</div>
-        </div>
+<div class="card">
+<div class="icon">✨</div>
+<h3>Party Makeup</h3>
+<div class="price">₹4,499</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">✨</div>
-            <h3>Party Makeup</h3>
-            <div class="price">₹4,499</div>
-        </div>
+<div class="card">
+<div class="icon">💎</div>
+<h3>Reception Makeup</h3>
+<div class="price">₹7,999</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">💎</div>
-            <h3>Reception Makeup</h3>
-            <div class="price">₹7,999</div>
-        </div>
+<div class="card">
+<div class="icon">💍</div>
+<h3>Engagement Makeup</h3>
+<div class="price">₹9,999</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">💍</div>
-            <h3>Engagement Makeup</h3>
-            <div class="price">₹9,999</div>
-        </div>
+<div class="card">
+<div class="icon">🥂</div>
+<h3>Cocktail Makeup</h3>
+<div class="price">₹3,499</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">🥂</div>
-            <h3>Cocktail Makeup</h3>
-            <div class="price">₹3,499</div>
-        </div>
+<div class="card">
+<div class="icon">🌼</div>
+<h3>Haldi Makeup</h3>
+<div class="price">₹2,499</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">🌼</div>
-            <h3>Haldi Makeup</h3>
-            <div class="price">₹2,499</div>
-        </div>
+<div class="card">
+<div class="icon">📸</div>
+<h3>Pre-Wedding Makeup</h3>
+<div class="price">₹8,999</div>
+</div>
 
-        <div class="service-card">
-            <div class="service-icon">📸</div>
-            <h3>Pre-Wedding Makeup</h3>
-            <div class="price">₹8,999</div>
-        </div>
+</div>
 
-    </div>
-
-    <div class="other-services">
-
-        <b>More Beauty Services</b>
-
-        <br>
-
-        Facial • Threading • Full Body Waxing • Pedicure & Manicure
-        • Hair Spa • Smoothening • Keratin • Skin Treatment
-        • Head Massage • Body Massage • Head Wash & Blow Dry
-        • Pre-Bridal Services • All Type Makeups • Nails • Mehndi
-
-    </div>
+<div class="more">
+<b>More Beauty Services</b><br>
+Facial • Threading • Full Body Waxing • Pedicure & Manicure •
+Hair Spa • Smoothening • Keratin • Skin Treatment •
+Head Massage • Body Massage • Head Wash & Blow Dry •
+Pre-Bridal Services • All Type Makeups • Nails • Mehndi
+</div>
 
 </section>
 
@@ -780,38 +564,18 @@ footer{
 <!-- GALLERY -->
 <section id="gallery">
 
-    <div class="section-heading">
-        <span>Portfolio</span>
-        <h2>Our Work</h2>
+<div class="heading">
+<span>PORTFOLIO</span>
+<h2>Our Work</h2>
+<p>Add your best makeup and beauty photographs here.</p>
+</div>
 
-        <p>
-            Your beautiful moments deserve beautiful memories.
-        </p>
-    </div>
-
-    <div class="gallery">
-
-        <div class="gallery-card">
-            📸<br><br>
-            Add Bridal Makeup Photo
-        </div>
-
-        <div class="gallery-card">
-            💄<br><br>
-            Add Makeup Photo
-        </div>
-
-        <div class="gallery-card">
-            💅<br><br>
-            Add Nails Photo
-        </div>
-
-        <div class="gallery-card">
-            🌸<br><br>
-            Add Mehndi / Beauty Photo
-        </div>
-
-    </div>
+<div class="gallery">
+<div>📸<br><br>Bridal Makeup Photo</div>
+<div>💄<br><br>Makeup Transformation</div>
+<div>💅<br><br>Nails</div>
+<div>🌸<br><br>Mehndi & Beauty</div>
+</div>
 
 </section>
 
@@ -819,122 +583,207 @@ footer{
 <!-- BOOKING -->
 <section class="booking" id="booking">
 
-    <div class="section-heading">
+<div class="heading">
+<span>BOOKING</span>
+<h2>Book Your Glow</h2>
+<p>Send an appointment request to the studio.</p>
+</div>
 
-        <span>Appointments</span>
+<div class="bookingBox">
 
-        <h2>Book Your Glow</h2>
+<div class="info">
+<h3>Let's create your perfect look ✨</h3>
+<p>
+Choose your service, date and provide your contact details.
+Your request will appear in the appointment manager.
+</p>
+</div>
 
-        <p>
-            Send an appointment request and choose your preferred service.
-        </p>
+<form class="form" onsubmit="bookAppointment(event)">
 
-    </div>
+<div class="field">
+<label>Name</label>
+<input id="name" required>
+</div>
 
-    <div class="booking-container">
+<div class="field">
+<label>Email</label>
+<input id="email" type="email" required>
+</div>
 
-        <div class="booking-info">
+<div class="field">
+<label>Phone</label>
+<input id="phone" required>
+</div>
 
-            <h3>Let's create your perfect look ✨</h3>
+<div class="field">
+<label>Date</label>
+<input id="date" type="date" required>
+</div>
 
-            <p>
-                Fill out the form and your appointment will appear
-                in the appointment manager below.
-            </p>
+<div class="field">
+<label>Service</label>
+<select id="service" required>
+<option value="">Choose service</option>
+<option>Bridal Makeup — ₹24,999+</option>
+<option>Party Makeup — ₹4,499</option>
+<option>Reception Makeup — ₹7,999</option>
+<option>Engagement Makeup — ₹9,999</option>
+<option>Cocktail Makeup — ₹3,499</option>
+<option>Haldi Makeup — ₹2,499</option>
+<option>Pre-Wedding Makeup — ₹8,999</option>
+</select>
+</div>
 
-            <br>
+<div class="field">
+<label>Message</label>
+<textarea id="message"></textarea>
+</div>
 
-            <p>
-                Please provide the correct contact information so
-                the studio can confirm your appointment.
-            </p>
+<button class="btn primary" type="submit">
+Request Appointment
+</button>
 
-        </div>
+</form>
+</div>
+</section>
 
 
-        <form class="booking-form" onsubmit="createAppointment(event)">
+<!-- ACCOUNT -->
+<section class="account" id="account">
 
-            <div class="form-group">
-                <label>Your Name</label>
-                <input id="customerName" type="text" required>
-            </div>
+<div class="heading">
+<span>ACCOUNT</span>
+<h2>Customer Login</h2>
+<p>Customer account interface.</p>
+</div>
 
-            <div class="form-group">
-                <label>Phone Number</label>
-                <input id="customerPhone" type="tel" required>
-            </div>
+<div class="accountBox">
 
-            <div class="form-group">
-                <label>Appointment Date</label>
-                <input id="appointmentDate" type="date" required>
-            </div>
+<div class="tabs">
+<button class="tabActive" onclick="showLogin()">Login</button>
+<button onclick="showSignup()">Create Account</button>
+</div>
 
-            <div class="form-group">
-                <label>Service</label>
+<div id="loginForm">
 
-                <select id="appointmentService" required>
+<div class="field">
+<label>Email</label>
+<input id="loginEmail" type="email">
+</div>
 
-                    <option value="">
-                        Select a service
-                    </option>
+<div class="field">
+<label>Password</label>
+<input id="loginPassword" type="password">
+</div>
 
-                    <option>Bridal Makeup — ₹24,999+</option>
-                    <option>Party Makeup — ₹4,499</option>
-                    <option>Reception Makeup — ₹7,999</option>
-                    <option>Engagement Makeup — ₹9,999</option>
-                    <option>Cocktail Makeup — ₹3,499</option>
-                    <option>Haldi Makeup — ₹2,499</option>
-                    <option>Pre-Wedding Makeup — ₹8,999</option>
+<button class="btn primary" onclick="login()">
+Login
+</button>
 
-                </select>
+</div>
 
-            </div>
+<div id="signupForm" class="hidden">
 
-            <div class="form-group">
-                <label>Message</label>
+<div class="field">
+<label>Name</label>
+<input id="signupName">
+</div>
 
-                <textarea
-                    id="appointmentMessage"
-                    placeholder="Tell us anything important about your appointment..."
-                ></textarea>
+<div class="field">
+<label>Email</label>
+<input id="signupEmail" type="email">
+</div>
 
-            </div>
+<div class="field">
+<label>Password</label>
+<input id="signupPassword" type="password">
+</div>
 
-            <button class="btn btn-primary" type="submit">
-                Send Appointment Request
-            </button>
+<button class="btn primary" onclick="signup()">
+Create Account
+</button>
 
-        </form>
+</div>
 
-    </div>
+<div id="accountMessage"></div>
+
+</div>
+</section>
+
+
+<!-- CHAT -->
+<section class="chat" id="chat">
+
+<div class="heading">
+<span>CHAT</span>
+<h2>Studio Chat</h2>
+<p>Demo chat interface.</p>
+</div>
+
+<div class="chatBox">
+
+<div class="messages" id="messages">
+<div class="message">
+Welcome to GLOW up Gurpreet Kaur 💄✨
+</div>
+</div>
+
+<div class="chatForm">
+<input id="chatInput" placeholder="Write a message...">
+<button class="btn primary" onclick="sendMessage()">Send</button>
+</div>
+
+</div>
+</section>
+
+
+<!-- REVIEWS -->
+<section class="reviews">
+
+<div class="heading">
+<span>FEEDBACK</span>
+<h2>Client Love</h2>
+<p>Beautiful experiences deserve to be shared.</p>
+</div>
+
+<div class="reviewGrid" id="reviews">
+
+<div class="review">
+<div class="stars">★★★★★</div>
+Beautiful service and amazing experience! ✨
+</div>
+
+<div class="review">
+<div class="stars">★★★★★</div>
+Loved the makeup and the attention to detail.
+</div>
+
+</div>
+
+<div style="max-width:600px;margin:35px auto">
+<textarea id="feedback" placeholder="Write your feedback..."></textarea>
+<button class="btn primary" onclick="addFeedback()">
+Submit Feedback
+</button>
+</div>
 
 </section>
 
 
-<!-- APPOINTMENT MANAGER -->
-<section class="admin" id="appointments">
+<!-- ADMIN -->
+<section class="dashboard" id="dashboard">
 
-    <div class="section-heading">
+<div class="heading">
+<span>PRIVATE AREA</span>
+<h2>Studio Admin</h2>
+<p>
+Admin controls are shown here as a front-end demo.
+Real secure admin authentication requires a backend.
+</p>
+</div>
 
-        <span>Studio Manager</span>
-
-        <h2>Appointments</h2>
-
-        <p>
-            Accept, complete or cancel appointment requests.
-        </p>
-
-    </div>
-
-    <div class="admin-box">
-
-        <div class="admin-note">
-            Demo appointment manager — saved in this browser only.
-        </div>
-
-        <div id="appointmentList" class="appointments"></div>
-
-    </div>
+<div class="appointments" id="appointments"></div>
 
 </section>
 
@@ -942,306 +791,272 @@ footer{
 <!-- CONTACT -->
 <section class="contact" id="contact">
 
-    <div class="section-heading">
+<div class="heading">
+<span>CONTACT</span>
+<h2>GLOW up Gurpreet Kaur</h2>
+</div>
 
-        <span>Get In Touch</span>
+<div class="contactBox">
+<p>Makeup & Beauty Studio</p>
 
-        <h2>Contact GLOW up</h2>
-
-    </div>
-
-    <div class="contact-card">
-
-        <h3>GLOW up Gurpreet Kaur</h3>
-
-        <p>
-            Makeup & Beauty Studio
-        </p>
-
-        <a
-            class="instagram"
-            href="https://www.instagram.com/gurpreetmakeup204/"
-            target="_blank"
-        >
-            Instagram: @gurpreetmakeup204
-        </a>
-
-    </div>
+<a href="https://www.instagram.com/gurpreetmakeup204/"
+target="_blank">
+Instagram: @gurpreetmakeup204
+</a>
+</div>
 
 </section>
 
 
 <footer>
-    © 2026 GLOW up Gurpreet Kaur • All Rights Reserved
+© 2026 GLOW up Gurpreet Kaur • Makeup & Beauty Studio
 </footer>
 
 
 <script>
 
-/* LOADING SCREEN */
-window.addEventListener("load", function(){
-
-    setTimeout(function(){
-
-        document.getElementById("loader").classList.add("hide");
-
-        document.body.classList.remove("loading");
-
-    }, 4000);
-
-});
+/* LOADING */
+setTimeout(function(){
+document.getElementById("loader").classList.add("hide");
+document.body.classList.remove("loading");
+},5000);
 
 
-/* APPOINTMENT STORAGE */
+/* APPOINTMENTS */
 
 let appointments =
-    JSON.parse(localStorage.getItem("glowUpAppointments")) || [];
+JSON.parse(localStorage.getItem("glowAppointments")) || [];
 
-
-/* CREATE APPOINTMENT */
-
-function createAppointment(event){
-
-    event.preventDefault();
-
-    const appointment = {
-
-        id: Date.now(),
-
-        name:
-            document.getElementById("customerName").value,
-
-        phone:
-            document.getElementById("customerPhone").value,
-
-        date:
-            document.getElementById("appointmentDate").value,
-
-        service:
-            document.getElementById("appointmentService").value,
-
-        message:
-            document.getElementById("appointmentMessage").value,
-
-        status:
-            "Pending"
-
-    };
-
-
-    appointments.push(appointment);
-
-    saveAppointments();
-
-    event.target.reset();
-
-    alert(
-        "Appointment request sent successfully! 💄✨"
-    );
-
-    renderAppointments();
-
-    document
-        .getElementById("appointments")
-        .scrollIntoView();
-
+function save(){
+localStorage.setItem(
+"glowAppointments",
+JSON.stringify(appointments)
+);
 }
 
+function bookAppointment(e){
 
-/* SAVE */
+e.preventDefault();
 
-function saveAppointments(){
+appointments.push({
+id:Date.now(),
+name:document.getElementById("name").value,
+email:document.getElementById("email").value,
+phone:document.getElementById("phone").value,
+date:document.getElementById("date").value,
+service:document.getElementById("service").value,
+message:document.getElementById("message").value,
+status:"Pending"
+});
 
-    localStorage.setItem(
-        "glowUpAppointments",
-        JSON.stringify(appointments)
-    );
+save();
+renderAppointments();
 
+e.target.reset();
+
+alert("Appointment request submitted! 💄✨");
+
+document.getElementById("dashboard")
+.scrollIntoView();
 }
 
+function updateAppointment(id,status){
 
-/* UPDATE STATUS */
+appointments=appointments.map(a=>{
+if(a.id===id)a.status=status;
+return a;
+});
 
-function updateAppointment(id, status){
-
-    appointments =
-        appointments.map(function(appointment){
-
-            if(appointment.id === id){
-
-                appointment.status = status;
-
-            }
-
-            return appointment;
-
-        });
-
-    saveAppointments();
-
-    renderAppointments();
-
+save();
+renderAppointments();
 }
-
-
-/* CANCEL */
 
 function cancelAppointment(id){
 
-    appointments =
-        appointments.filter(function(appointment){
+appointments=appointments.filter(a=>a.id!==id);
 
-            return appointment.id !== id;
-
-        });
-
-    saveAppointments();
-
-    renderAppointments();
-
+save();
+renderAppointments();
 }
-
-
-/* DISPLAY */
 
 function renderAppointments(){
 
-    const list =
-        document.getElementById("appointmentList");
+const box=document.getElementById("appointments");
+
+if(!appointments.length){
+
+box.innerHTML=
+`<div class="appointment">
+No appointments yet 📅
+</div>`;
+
+return;
+}
+
+box.innerHTML=appointments.map(a=>`
+
+<div class="appointment">
+
+<div>
+<h3>${safe(a.name)}</h3>
+
+<p>
+📧 ${safe(a.email)}<br>
+📞 ${safe(a.phone)}<br>
+📅 ${safe(a.date)}<br>
+💄 ${safe(a.service)}
+</p>
+
+<span class="status ${a.status.toLowerCase()}">
+${a.status}
+</span>
+</div>
+
+<div class="actions">
+
+${a.status==="Pending"?
+`<button class="action accept"
+onclick="updateAppointment(${a.id},'Accepted')">
+Accept
+</button>`:""}
+
+${a.status==="Accepted"?
+`<button class="action complete"
+onclick="updateAppointment(${a.id},'Completed')">
+Complete
+</button>`:""}
+
+${a.status!=="Completed"?
+`<button class="action cancel"
+onclick="cancelAppointment(${a.id})">
+Cancel
+</button>`:""}
+
+${a.status==="Completed"?
+`<button class="action cancel"
+onclick="cancelAppointment(${a.id})">
+Remove
+</button>`:""}
+
+</div>
+
+</div>
+
+`).join("");
+}
 
 
-    if(appointments.length === 0){
+/* LOGIN DEMO */
 
-        list.innerHTML = `
-            <div class="empty">
-                No appointments yet 📅
-            </div>
-        `;
+function showLogin(){
+document.getElementById("loginForm").classList.remove("hidden");
+document.getElementById("signupForm").classList.add("hidden");
+}
 
-        return;
+function showSignup(){
+document.getElementById("loginForm").classList.add("hidden");
+document.getElementById("signupForm").classList.remove("hidden");
+}
 
-    }
+function signup(){
 
+const user={
+name:document.getElementById("signupName").value,
+email:document.getElementById("signupEmail").value,
+password:document.getElementById("signupPassword").value
+};
 
-    list.innerHTML =
-        appointments.map(function(appointment){
+localStorage.setItem("glowUser",JSON.stringify(user));
 
-            let statusClass =
-                appointment.status.toLowerCase();
+document.getElementById("accountMessage").innerHTML=
+"<br>Account created successfully! ✨";
 
+}
 
-            return `
+function login(){
 
-                <div class="appointment">
+const user=
+JSON.parse(localStorage.getItem("glowUser"));
 
-                    <div class="appointment-info">
+const email=
+document.getElementById("loginEmail").value;
 
-                        <h4>
-                            ${escapeHTML(appointment.name)}
-                        </h4>
+const password=
+document.getElementById("loginPassword").value;
 
-                        <p>
-                            📞 ${escapeHTML(appointment.phone)}
-                            <br>
+if(user && user.email===email && user.password===password){
 
-                            📅 ${escapeHTML(appointment.date)}
-                            <br>
+document.getElementById("accountMessage").innerHTML=
+"<br>Welcome back, "+safe(user.name)+"! 💄✨";
 
-                            💄 ${escapeHTML(appointment.service)}
+}else{
 
-                            ${
-                                appointment.message
-                                ?
-                                `<br>💬 ${escapeHTML(appointment.message)}`
-                                :
-                                ""
-                            }
+document.getElementById("accountMessage").innerHTML=
+"<br>Email or password is incorrect.";
 
-                        </p>
-
-                        <span class="status ${statusClass}">
-                            ${appointment.status}
-                        </span>
-
-                    </div>
-
-
-                    <div class="actions">
-
-                        ${
-                            appointment.status === "Pending"
-                            ?
-                            `
-                            <button
-                                class="action-btn accept"
-                                onclick="updateAppointment(${appointment.id}, 'Accepted')"
-                            >
-                                Accept
-                            </button>
-                            `
-                            :
-                            ""
-                        }
-
-
-                        ${
-                            appointment.status === "Accepted"
-                            ?
-                            `
-                            <button
-                                class="action-btn complete"
-                                onclick="updateAppointment(${appointment.id}, 'Completed')"
-                            >
-                                Complete
-                            </button>
-                            `
-                            :
-                            ""
-                        }
-
-
-                        ${
-                            appointment.status !== "Completed"
-                            ?
-                            `
-                            <button
-                                class="action-btn cancel"
-                                onclick="cancelAppointment(${appointment.id})"
-                            >
-                                Cancel
-                            </button>
-                            `
-                            :
-                            ""
-                        }
-
-                    </div>
-
-                </div>
-
-            `;
-
-        }).join("");
+}
 
 }
 
 
-/* SECURITY HELPER */
+/* CHAT */
 
-function escapeHTML(value){
+let warnings=0;
 
-    return String(value)
+function sendMessage(){
 
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+const input=document.getElementById("chatInput");
+const text=input.value.trim();
+
+if(!text)return;
+
+const message=document.createElement("div");
+message.className="message";
+message.textContent=text;
+
+document.getElementById("messages").appendChild(message);
+
+input.value="";
+
+document.getElementById("messages").scrollTop=
+document.getElementById("messages").scrollHeight;
+}
+
+
+/* FEEDBACK */
+
+function addFeedback(){
+
+const text=
+document.getElementById("feedback").value.trim();
+
+if(!text)return;
+
+const review=document.createElement("div");
+review.className="review";
+
+review.innerHTML=
+`<div class="stars">★★★★★</div>${safe(text)}`;
+
+document.getElementById("reviews").appendChild(review);
+
+document.getElementById("feedback").value="";
 
 }
 
 
-/* INITIAL DISPLAY */
+/* SAFETY */
+
+function safe(value){
+
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
 
 renderAppointments();
 
