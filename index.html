@@ -11,14 +11,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{
   font-family:Arial, sans-serif;
-  background:#fff7fb;
-  color:#301b28;
+  background:#000000;
+  color:#ffffff;
 }
 header{
   position:sticky;
   top:0;
   z-index:20;
-  background:#ffffffee;
+  background:#111111ee;
   backdrop-filter:blur(12px);
   border-bottom:1px solid #ead8e1;
   padding:15px;
@@ -61,7 +61,7 @@ nav button:hover{background:#e9cddd}
 }
 .hero p{font-size:20px;max-width:700px}
 .card{
-  background:white;
+ background:#181818;
   border:1px solid #ead8e1;
   border-radius:22px;
   padding:22px;
@@ -94,7 +94,7 @@ textarea{min-height:110px}
 .service{
   padding:20px;
   border-radius:18px;
-  background:#fff;
+  background:#181818;
   border:1px solid #ead8e1;
 }
 .price{font-weight:bold;margin-top:8px}
@@ -193,6 +193,10 @@ textarea{min-height:110px}
 <p>Professional makeup, beauty and pre-bridal services.</p>
 <br>
 <button class="primary" onclick="showPage('booking')">Book Appointment</button>
+  
+  <a class="primary" href="https://wa.me/918288074744" target="_blank" style="display:inline-block;margin-top:12px;text-decoration:none;">
+  Chat on WhatsApp
+</a>
 </div>
 </section>
 
@@ -776,7 +780,7 @@ async function loadNotifications(){
   admin access should be protected server-side.
 */
 
-const ADMIN_DEMO_CODE="CHANGE_THIS_ADMIN_CODE";
+const ADMIN_DEMO_CODE="GlowAdmin2026!";
 
 function adminLogin(){
 
@@ -1031,7 +1035,10 @@ function askAI(){
   else if(question.includes("book") ||
           question.includes("appointment"))
     answer="Go to the 📅 Book tab and choose your service, date and time.";
-
+    
+else if(question.includes("phone") || question.includes("number") || question.includes("contact") || question.includes("whatsapp"))
+  answer="You can contact Glow Up Studio on WhatsApp: +91 8288074744";
+  
   else if(question.includes("price") ||
           question.includes("service"))
     answer="You can see all services and prices in the 💄 Services tab.";
