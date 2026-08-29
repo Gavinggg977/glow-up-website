@@ -2,2055 +2,1130 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GLOW up Gurpreet Kaur</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GLOW up gurpreet kaur</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{
-  font-family:Arial,sans-serif;
-  background:#fff8fb;
-  color:#281820;
+  font-family:Arial, sans-serif;
+  background:#fff7fb;
+  color:#301b28;
 }
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-
-:root{
-  --pink:#d45b8a;
-  --pink2:#f5c7d9;
-  --cream:#fff8fb;
-  --gold:#c7a15a;
-  --dark:#24151c;
-  --muted:#765866;
-  --white:#fff;
-}
-
-.hidden{display:none!important}
-
-/* LOADER */
-#loader{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:
-    radial-gradient(circle at 15% 20%,#f5cddd,transparent 30%),
-    radial-gradient(circle at 85% 80%,#f2dfbb,transparent 30%),
-    linear-gradient(135deg,#fff,#fff0f6);
-  transition:.8s;
-}
-#loader.hide{
-  opacity:0;
-  visibility:hidden;
-}
-.loaderBox{position:relative}
-.loaderLogo{
-  width:190px;
-  height:130px;
-  object-fit:contain;
-  animation:pulse 1.2s infinite alternate;
-}
-.loaderTitle{
-  font:48px Georgia,serif;
-  letter-spacing:5px;
-}
-.loaderTitle span{color:var(--pink)}
-.loaderText{
-  color:var(--muted);
-  letter-spacing:4px;
-  font-size:11px;
-  margin:8px 0 18px;
-}
-.track{
-  width:290px;
-  height:55px;
-  overflow:hidden;
-  position:relative;
-}
-.panda{
-  position:absolute;
-  left:-60px;
-  font-size:42px;
-  animation:roll 1.8s linear infinite;
-}
-.progress{
-  width:250px;
-  height:5px;
-  background:#ead1dc;
-  border-radius:20px;
-  margin:auto;
-  overflow:hidden;
-}
-.progress div{
-  height:100%;
-  width:0;
-  background:linear-gradient(90deg,var(--pink),var(--gold));
-  animation:progress 5s linear forwards;
-}
-.spark{
-  position:absolute;
-  font-size:25px;
-  color:var(--pink);
-  animation:float 2s infinite;
-}
-.s1{left:-80px;top:10px}
-.s2{right:-70px;top:50px}
-.s3{left:-65px;bottom:30px}
-.s4{right:-65px;bottom:0}
-
-@keyframes roll{
-  from{left:-60px;transform:rotate(0)}
-  to{left:310px;transform:rotate(720deg)}
-}
-@keyframes progress{to{width:100%}}
-@keyframes pulse{
-  from{transform:scale(.94)}
-  to{transform:scale(1.06)}
-}
-@keyframes float{
-  50%{transform:translateY(-15px) rotate(15deg);opacity:.4}
-}
-
-/* HEADER */
 header{
   position:sticky;
   top:0;
-  z-index:1000;
-  background:#fffffff2;
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #efdce4;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px 5%;
-}
-.logo{
-  width:125px;
-  height:60px;
-  object-fit:contain;
+  z-index:20;
+  background:#ffffffee;
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #ead8e1;
+  padding:15px;
 }
 nav{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:17px;
-}
-nav a{
-  text-decoration:none;
-  color:#281820;
-  font-weight:bold;
-  font-size:14px;
-}
-nav a:hover{color:var(--pink)}
-
-section{padding:80px 7%}
-.heading{
-  text-align:center;
-  margin-bottom:40px;
-}
-.heading small{
-  color:var(--pink);
-  letter-spacing:4px;
-  font-weight:bold;
-}
-.heading h2{
-  font:44px Georgia,serif;
-  margin:10px 0;
-}
-.heading p{
-  max-width:650px;
-  margin:auto;
-  color:var(--muted);
-  line-height:1.7;
-}
-
-/* BUTTONS */
-.btn{
-  border:0;
-  border-radius:30px;
-  padding:13px 23px;
-  font-weight:bold;
-  display:inline-block;
-  margin:5px;
-}
-.primary{background:var(--pink);color:white}
-.secondary{
-  background:white;
-  color:var(--pink);
-  border:1px solid #e5c1cf;
-}
-.btn:hover{transform:translateY(-2px)}
-
-/* HERO */
-.hero{
-  min-height:88vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background:
-    radial-gradient(circle at 10% 30%,#f7d5e2,transparent 30%),
-    radial-gradient(circle at 90% 70%,#f1dfc1,transparent 30%);
-}
-.heroLabel{
-  color:var(--pink);
-  letter-spacing:5px;
-  font-size:12px;
-  font-weight:bold;
-}
-.hero h1{
-  font:clamp(60px,10vw,110px) Georgia,serif;
-  margin:15px 0;
-}
-.hero h1 span{color:var(--pink)}
-.hero p{
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.8;
-}
-
-/* SERVICES */
-.services{background:white}
-.grid{
   max-width:1200px;
   margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-.card{
-  background:linear-gradient(145deg,#fff7fa,#fff);
-  border:1px solid #efdce4;
-  border-radius:23px;
-  padding:28px 18px;
-  text-align:center;
-  box-shadow:0 10px 30px #43192a0b;
-  transition:.3s;
-}
-.card:hover{transform:translateY(-7px)}
-.icon{font-size:36px}
-.card h3{
-  color:var(--pink);
-  font:22px Georgia,serif;
-  margin:12px 0;
-}
-.price{
-  font-weight:bold;
-  font-size:18px;
-}
-.other{
-  max-width:1000px;
-  margin:35px auto 0;
-  padding:28px;
-  border-radius:22px;
-  background:#fff1f6;
-  color:var(--muted);
-  text-align:center;
-  line-height:2;
-}
-
-/* GALLERY */
-.gallery{
-  max-width:1100px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-.galleryCard{
-  height:260px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#f4d1df,#fff);
   display:flex;
+  gap:8px;
+  flex-wrap:wrap;
   justify-content:center;
-  align-items:center;
-  text-align:center;
-  font-size:22px;
-  color:var(--muted);
 }
-
-/* BOOKING */
-.booking{
-  background:linear-gradient(135deg,#fff0f6,#fffaf3);
-}
-.bookingGrid{
-  max-width:1050px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:30px;
-}
-.bookingInfo{
-  padding:30px;
-}
-.bookingInfo h3{
-  font:38px Georgia,serif;
-  margin-bottom:20px;
-}
-.bookingInfo p{
-  color:var(--muted);
-  line-height:1.9;
-}
-.form{
-  background:white;
-  padding:30px;
+nav button{
+  border:0;
+  background:#f5e5ee;
+  padding:11px 16px;
   border-radius:25px;
-  box-shadow:0 10px 35px #43192a0c;
-}
-.field{margin-bottom:15px}
-.field label{
-  display:block;
+  cursor:pointer;
   font-weight:bold;
-  font-size:13px;
-  margin-bottom:6px;
+}
+nav button:hover{background:#e9cddd}
+.page{
+  display:none;
+  max-width:1200px;
+  margin:auto;
+  padding:45px 20px;
+}
+.page.active{display:block}
+.hero{
+  min-height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  flex-direction:column;
+}
+.hero h1{
+  font-size:clamp(40px,8vw,80px);
+  margin-bottom:15px;
+}
+.hero p{font-size:20px;max-width:700px}
+.card{
+  background:white;
+  border:1px solid #ead8e1;
+  border-radius:22px;
+  padding:22px;
+  margin:15px 0;
+  box-shadow:0 8px 30px #0000000b;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
 }
 input,select,textarea{
   width:100%;
-  border:1px solid #e7d1db;
-  border-radius:10px;
-  padding:12px;
-  outline:none;
-  background:white;
+  padding:13px;
+  margin:7px 0 14px;
+  border:1px solid #d9c3ce;
+  border-radius:12px;
+  font-size:15px;
 }
-input:focus,select:focus,textarea:focus{
-  border-color:var(--pink);
-}
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-/* ACCOUNT */
-.account{background:white}
-.accountBox{
-  max-width:650px;
-  margin:auto;
-  background:#fff5f9;
-  padding:30px;
-  border-radius:25px;
-}
-.accountTabs{
-  display:flex;
-  gap:8px;
-  margin-bottom:20px;
-}
-.accountTabs button{
-  flex:1;
+textarea{min-height:110px}
+.primary{
   border:0;
-  padding:12px;
-  border-radius:10px;
-  background:#efdbe4;
-}
-.accountTabs button.active{
-  background:var(--pink);
+  background:#301b28;
   color:white;
-}
-.accountMessage{
-  margin-top:12px;
-  color:var(--pink);
+  padding:13px 20px;
+  border-radius:25px;
+  cursor:pointer;
   font-weight:bold;
 }
-
-/* CHAT */
-.chatSection{background:#fff2f7}
-.chatBox{
-  max-width:800px;
-  margin:auto;
-  background:white;
-  border-radius:25px;
-  overflow:hidden;
-}
-.messages{
-  height:340px;
-  overflow-y:auto;
+.service{
   padding:20px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid #ead8e1;
 }
-.chatMessage{
-  position:relative;
-  background:#fff0f5;
-  padding:12px 40px 12px 14px;
-  border-radius:15px;
-  margin-bottom:10px;
-  width:max-content;
-  max-width:80%;
-}
-.deleteMsg{
-  position:absolute;
-  right:7px;
-  top:7px;
-  border:0;
-  background:none;
-  color:#b35b75;
-  font-size:18px;
-}
-.chatInput{
-  display:flex;
-  gap:8px;
-  border-top:1px solid #eee;
+.price{font-weight:bold;margin-top:8px}
+.item{
   padding:15px;
-}
-
-/* REVIEWS */
-.reviews{
-  max-width:1000px;
-  margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:20px;
-}
-.review{
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  box-shadow:0 8px 25px #43192a0c;
-}
-.stars{
-  color:var(--gold);
-  font-size:20px;
-  margin-bottom:10px;
-}
-
-/* ADMIN */
-.admin{
-  background:#21131b;
-  color:white;
-}
-.admin .heading p{color:#cdbcc5}
-.adminBox{
-  max-width:1100px;
-  margin:auto;
-}
-.adminLogin{
-  max-width:450px;
-  margin:auto;
-  background:#30202a;
-  padding:30px;
-  border-radius:22px;
-}
-.adminLogin h3{
-  margin-bottom:15px;
-}
-.adminStats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-  gap:15px;
-  margin-bottom:25px;
-}
-.stat{
-  background:#30202a;
-  border:1px solid #503844;
-  padding:20px;
-  border-radius:18px;
-}
-.stat strong{
-  display:block;
-  font-size:30px;
-  color:#f2a8c4;
-}
-.appointment{
-  background:#30202a;
-  border:1px solid #503844;
-  padding:20px;
-  border-radius:18px;
-  margin-bottom:14px;
-}
-.appointment h3{margin-bottom:7px}
-.appointment p{
-  color:#d2bec7;
-  line-height:1.7;
+  border-bottom:1px solid #ead8e1;
 }
 .status{
   display:inline-block;
   padding:5px 10px;
-  border-radius:20px;
-  font-size:11px;
+  border-radius:15px;
+  background:#f5e5ee;
+  font-size:12px;
+}
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#301b28;
+  color:white;
+  padding:15px 20px;
+  border-radius:15px;
+  display:none;
+  z-index:100;
+}
+#loading{
+  position:fixed;
+  inset:0;
+  background:#fff7fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:999;
+}
+.spinner{
+  width:55px;height:55px;
+  border:5px solid #ead8e1;
+  border-top-color:#301b28;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.chatbox{
+  height:400px;
+  overflow:auto;
+  border:1px solid #ead8e1;
+  border-radius:18px;
+  padding:15px;
+  background:#fff;
+}
+.message{
+  padding:10px 14px;
+  background:#f5e5ee;
+  border-radius:15px;
   margin:8px 0;
 }
-.status.Pending{background:#80672e}
-.status.Accepted{background:#34764c}
-.status.Completed{background:#45699b}
-.actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
+.ai{
+  background:#301b28;
+  color:white;
 }
-.action{
-  border:0;
-  border-radius:8px;
-  padding:9px 12px;
-  font-weight:bold;
-}
-.accept{background:#72c98a}
-.complete{background:#89a9e4}
-.cancel{background:#db7181}
-.warn{background:#d6b05e}
-.ban{background:#d34f63;color:white}
-
-/* FOOTER */
-footer{
-  background:#21131b;
-  color:#cdbcc5;
-  text-align:center;
-  padding:30px;
-}
-footer a{color:#f2a8c4}
-
-@media(max-width:800px){
-  header{flex-direction:column}
-  nav{gap:10px}
-  .bookingGrid{grid-template-columns:1fr}
-  section{padding:60px 5%}
-}
+.admin-only{display:none}
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOADING ================= -->
-
-<div id="loader">
-  <div class="loaderBox">
-
-    <div class="spark s1">✦</div>
-    <div class="spark s2">✧</div>
-    <div class="spark s3">♡</div>
-    <div class="spark s4">✦</div>
-
-    <img
-      class="loaderLogo"
-      src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
-      alt="GLOW up logo">
-
-    <div class="loaderTitle">
-      GLOW <span>up</span>
-    </div>
-
-    <div class="loaderText">
-      PREPARING YOUR GLOW
-    </div>
-
-    <div class="track">
-      <div class="panda">🐼</div>
-    </div>
-
-    <div class="progress">
-      <div></div>
-    </div>
-
-  </div>
+<div id="loading">
+  <div class="spinner"></div>
+  <h2 style="margin-top:20px">GLOW up gurpreet kaur</h2>
+  <p>Preparing your beauty experience...</p>
 </div>
 
-
-<!-- ================= HEADER ================= -->
-
 <header>
-
-  <a href="#home">
-    <img
-      class="logo"
-      src="a6b4da57-e7ca-4d47-819b-1fa6006a8828.png"
-      alt="GLOW up">
-  </a>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#booking">Book</a>
-    <a href="#account">Account</a>
-    <a href="#chat">Chat</a>
-    <a href="#feedback">Feedback</a>
-    <a href="#admin">Studio</a>
-  </nav>
-
+<nav>
+<button onclick="showPage('home')">🏠 Home</button>
+<button onclick="showPage('services')">💄 Services</button>
+<button onclick="showPage('gallery')">🖼️ Gallery</button>
+<button onclick="showPage('booking')">📅 Book</button>
+<button onclick="showPage('account')">👤 Account</button>
+<button onclick="showPage('chat')">💬 Chat</button>
+<button onclick="showPage('feedback')">⭐ Feedback</button>
+<button onclick="showPage('ai')">🤖 AI Assistant</button>
+<button onclick="showPage('notifications')">🔔 Notifications</button>
+<button onclick="showPage('admin')">👑 Admin</button>
+</nav>
 </header>
 
+<div id="toast"></div>
 
-<!-- ================= HOME ================= -->
-
-<section class="hero" id="home">
-
-  <div>
-
-    <div class="heroLabel">
-      MAKEUP • BEAUTY • SELFCARE
-    </div>
-
-    <h1>
-      GLOW <span>up</span>
-    </h1>
-
-    <p>
-      Gurpreet Kaur Makeup & Beauty Studio
-    </p>
-
-    <p>
-      Beauty made for your most beautiful moments.
-    </p>
-
-    <div style="margin-top:28px">
-      <a class="btn primary" href="#booking">
-        Book Appointment
-      </a>
-
-      <a class="btn secondary" href="#services">
-        Explore Services
-      </a>
-    </div>
-
-  </div>
-
+<!-- HOME -->
+<section id="home" class="page active">
+<div class="hero">
+<h1>GLOW up</h1>
+<h2>gurpreet kaur</h2>
+<p>Professional makeup, beauty and pre-bridal services.</p>
+<br>
+<button class="primary" onclick="showPage('booking')">Book Appointment</button>
+</div>
 </section>
 
+<!-- SERVICES -->
+<section id="services" class="page">
+<h1>💄 Our Services</h1>
+<br>
+<div class="grid">
 
-<!-- ================= SERVICES ================= -->
+<div class="service"><h3>Bridal Makeup</h3><p class="price">Starts at ₹24,999</p></div>
+<div class="service"><h3>Party Makeup</h3><p class="price">₹4,499</p></div>
+<div class="service"><h3>Reception Makeup</h3><p class="price">₹7,999</p></div>
+<div class="service"><h3>Engagement Makeup</h3><p class="price">₹9,999</p></div>
+<div class="service"><h3>Cocktail Makeup</h3><p class="price">₹3,499</p></div>
+<div class="service"><h3>Haldi Makeup</h3><p class="price">₹2,499</p></div>
+<div class="service"><h3>Pre Wedding Makeup</h3><p class="price">₹8,999</p></div>
+<div class="service"><h3>Facial</h3></div>
+<div class="service"><h3>Threading</h3></div>
+<div class="service"><h3>Full Body Waxing</h3></div>
+<div class="service"><h3>Pedicure & Manicure</h3></div>
+<div class="service"><h3>Hair Spa</h3></div>
+<div class="service"><h3>Smoothening</h3></div>
+<div class="service"><h3>Keratin</h3></div>
+<div class="service"><h3>Skin Treatment</h3></div>
+<div class="service"><h3>Head Massage</h3></div>
+<div class="service"><h3>Body Massage</h3></div>
+<div class="service"><h3>Head Wash & Blow Dryer</h3></div>
+<div class="service"><h3>Pre Bridal Services</h3></div>
+<div class="service"><h3>All Type Makeups</h3></div>
+<div class="service"><h3>Nails</h3></div>
+<div class="service"><h3>Mehndi</h3></div>
 
-<section class="services" id="services">
-
-  <div class="heading">
-
-    <small>OUR SERVICES</small>
-
-    <h2>Makeup Packages</h2>
-
-    <p>
-      Choose the look that is perfect for your special occasion.
-    </p>
-
-  </div>
-
-  <div class="grid">
-
-    <div class="card">
-      <div class="icon">👰</div>
-      <h3>Bridal Makeup</h3>
-      <div class="price">₹24,999+</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">✨</div>
-      <h3>Party Makeup</h3>
-      <div class="price">₹4,499</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">💎</div>
-      <h3>Reception Makeup</h3>
-      <div class="price">₹7,999</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">💍</div>
-      <h3>Engagement Makeup</h3>
-      <div class="price">₹9,999</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">🥂</div>
-      <h3>Cocktail Makeup</h3>
-      <div class="price">₹3,499</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">🌼</div>
-      <h3>Haldi Makeup</h3>
-      <div class="price">₹2,499</div>
-    </div>
-
-    <div class="card">
-      <div class="icon">📸</div>
-      <h3>Pre-Wedding Makeup</h3>
-      <div class="price">₹8,999</div>
-    </div>
-
-  </div>
-
-  <div class="other">
-
-    <b>MORE BEAUTY SERVICES</b><br>
-
-    Facial • Threading • Full Body Waxing •
-    Pedicure & Manicure • Hair Spa • Smoothening •
-    Keratin • Skin Treatment with Natural Ingredients •
-    Head Massage • Body Massage • Head Wash & Blow Dryer •
-    Pre-Bridal Services • All Type Makeups • Nails • Mehndi
-
-  </div>
-
+</div>
 </section>
 
-
-<!-- ================= GALLERY ================= -->
-
-<section id="gallery">
-
-  <div class="heading">
-
-    <small>OUR WORK</small>
-
-    <h2>Beauty Gallery</h2>
-
-    <p>
-      Your studio photos can be added here.
-    </p>
-
-  </div>
-
-  <div class="gallery">
-
-    <div class="galleryCard">👰<br>Bridal Looks</div>
-    <div class="galleryCard">💄<br>Makeup Looks</div>
-    <div class="galleryCard">💅<br>Nails</div>
-    <div class="galleryCard">🌸<br>Mehndi</div>
-    <div class="galleryCard">✨<br>Transformations</div>
-    <div class="galleryCard">💎<br>Special Events</div>
-
-  </div>
-
+<!-- GALLERY -->
+<section id="gallery" class="page">
+<h1>🖼️ Gallery</h1>
+<div class="card">
+<p>Add your studio's best makeup and beauty photos here.</p>
+<p style="margin-top:10px">You can replace these cards with your actual images later.</p>
+</div>
 </section>
 
+<!-- BOOKING -->
+<section id="booking" class="page">
+<h1>📅 Book Appointment</h1>
 
-<!-- ================= BOOKING ================= -->
+<div class="card">
+<label>Your Name</label>
+<input id="customerName" placeholder="Enter your name">
 
-<section class="booking" id="booking">
+<label>Email</label>
+<input id="customerEmail" type="email" placeholder="Enter your email">
 
-  <div class="heading">
+<label>Phone</label>
+<input id="customerPhone" placeholder="Phone number">
 
-    <small>APPOINTMENTS</small>
+<label>Service</label>
+<select id="service">
+<option>Bridal Makeup</option>
+<option>Party Makeup</option>
+<option>Reception Makeup</option>
+<option>Engagement Makeup</option>
+<option>Cocktail Makeup</option>
+<option>Haldi Makeup</option>
+<option>Pre Wedding Makeup</option>
+<option>Facial</option>
+<option>Threading</option>
+<option>Full Body Waxing</option>
+<option>Pedicure & Manicure</option>
+<option>Hair Spa</option>
+<option>Smoothening</option>
+<option>Keratin</option>
+<option>Skin Treatment</option>
+<option>Head Massage</option>
+<option>Body Massage</option>
+<option>Nails</option>
+<option>Mehndi</option>
+</select>
 
-    <h2>Book Your Glow</h2>
+<label>Appointment Date</label>
+<input id="appointmentDate" type="date">
 
-    <p>
-      Send your appointment request to the studio.
-    </p>
+<label>Appointment Time</label>
+<input id="appointmentTime" type="time">
 
-  </div>
+<label>Message</label>
+<textarea id="appointmentMessage" placeholder="Anything we should know?"></textarea>
 
-  <div class="bookingGrid">
-
-    <div class="bookingInfo">
-
-      <h3>
-        Your perfect look starts here ✨
-      </h3>
-
-      <p>
-        Pick your service, date and contact details.
-        Your appointment will appear in the studio dashboard.
-      </p>
-
-      <br>
-
-      <b>Appointment Flow</b>
-
-      <p>
-        📅 Pending<br>
-        ✅ Accepted<br>
-        🏁 Completed<br>
-        ❌ Cancelled
-      </p>
-
-    </div>
-
-
-    <form class="form" onsubmit="bookAppointment(event)">
-
-      <div class="field">
-        <label>Name</label>
-        <input id="bName" required>
-      </div>
-
-      <div class="field">
-        <label>Email</label>
-        <input id="bEmail" type="email" required>
-      </div>
-
-      <div class="field">
-        <label>Phone</label>
-        <input id="bPhone" required>
-      </div>
-
-      <div class="field">
-        <label>Date</label>
-        <input id="bDate" type="date" required>
-      </div>
-
-      <div class="field">
-        <label>Service</label>
-
-        <select id="bService" required>
-
-          <option value="">
-            Select service
-          </option>
-
-          <option>
-            Bridal Makeup — ₹24,999+
-          </option>
-
-          <option>
-            Party Makeup — ₹4,499
-          </option>
-
-          <option>
-            Reception Makeup — ₹7,999
-          </option>
-
-          <option>
-            Engagement Makeup — ₹9,999
-          </option>
-
-          <option>
-            Cocktail Makeup — ₹3,499
-          </option>
-
-          <option>
-            Haldi Makeup — ₹2,499
-          </option>
-
-          <option>
-            Pre-Wedding Makeup — ₹8,999
-          </option>
-
-        </select>
-
-      </div>
-
-      <div class="field">
-
-        <label>Message</label>
-
-        <textarea
-          id="bMessage"
-          placeholder="Anything the studio should know?">
-        </textarea>
-
-      </div>
-
-      <button class="btn primary" type="submit">
-        Send Appointment
-      </button>
-
-    </form>
-
-  </div>
-
+<button class="primary" onclick="submitAppointment()">
+Submit Appointment
+</button>
+</div>
 </section>
 
+<!-- ACCOUNT -->
+<section id="account" class="page">
+<h1>👤 My Account</h1>
 
-<!-- ================= ACCOUNT ================= -->
+<div class="card">
+<label>Name</label>
+<input id="accountName" placeholder="Your name">
 
-<section class="account" id="account">
+<label>Email</label>
+<input id="accountEmail" type="email" placeholder="Your email">
 
-  <div class="heading">
+<button class="primary" onclick="saveAccount()">Save Account</button>
+</div>
 
-    <small>YOUR SPACE</small>
-
-    <h2>Customer Account</h2>
-
-    <p>
-      Create an account or log into your existing account.
-    </p>
-
-  </div>
-
-
-  <div class="accountBox">
-
-    <div class="accountTabs">
-
-      <button
-        id="loginTab"
-        class="active"
-        onclick="showAccount('login')">
-        Login
-      </button>
-
-      <button
-        id="signupTab"
-        onclick="showAccount('signup')">
-        Create Account
-      </button>
-
-    </div>
-
-
-    <!-- LOGIN -->
-
-    <div id="loginForm">
-
-      <div class="field">
-        <label>Email</label>
-        <input id="loginEmail" type="email">
-      </div>
-
-      <div class="field">
-        <label>Password</label>
-        <input id="loginPassword" type="password">
-      </div>
-
-      <button
-        class="btn primary"
-        onclick="loginUser()">
-        Login
-      </button>
-
-      <div id="loginMessage" class="accountMessage"></div>
-
-    </div>
-
-
-    <!-- SIGNUP -->
-
-    <div id="signupForm" class="hidden">
-
-      <div class="field">
-        <label>Name</label>
-        <input id="signupName">
-      </div>
-
-      <div class="field">
-        <label>Email</label>
-        <input id="signupEmail" type="email">
-      </div>
-
-      <div class="field">
-        <label>Password</label>
-        <input id="signupPassword" type="password">
-      </div>
-
-      <button
-        class="btn primary"
-        onclick="createAccount()">
-        Create Account
-      </button>
-
-      <div id="signupMessage" class="accountMessage"></div>
-
-    </div>
-
-
-    <div id="currentUser" class="hidden"
-         style="margin-top:20px">
-
-      <h3>Welcome, <span id="userName"></span> ✨</h3>
-
-      <button
-        class="btn secondary"
-        onclick="logoutUser()">
-        Logout
-      </button>
-
-    </div>
-
-  </div>
-
+<div class="card">
+<h3>My Appointments</h3>
+<div id="myAppointments">No appointments loaded.</div>
+</div>
 </section>
 
+<!-- CHAT -->
+<section id="chat" class="page">
+<h1>💬 Chat</h1>
 
-<!-- ================= CHAT ================= -->
+<div class="card">
+<div id="chatMessages" class="chatbox"></div>
 
-<section class="chatSection" id="chat">
+<input id="chatName" placeholder="Your name">
+<input id="chatEmail" placeholder="Your email">
+<input id="chatText" placeholder="Write a message...">
 
-  <div class="heading">
-
-    <small>CHAT</small>
-
-    <h2>Studio Chat</h2>
-
-    <p>
-      Chat with GLOW up.
-    </p>
-
-  </div>
-
-
-  <div class="chatBox">
-
-    <div class="messages" id="messages">
-
-      <div class="chatMessage">
-        💄 Welcome to GLOW up Gurpreet Kaur!
-      </div>
-
-    </div>
-
-
-    <div class="chatInput">
-
-      <input
-        id="chatText"
-        placeholder="Write your message..."
-        onkeydown="if(event.key==='Enter')sendMessage()">
-
-      <button
-        class="btn primary"
-        onclick="sendMessage()">
-        Send
-      </button>
-
-    </div>
-
-  </div>
-
+<button class="primary" onclick="sendChat()">Send Message</button>
+</div>
 </section>
 
+<!-- FEEDBACK -->
+<section id="feedback" class="page">
+<h1>⭐ Feedback</h1>
 
-<!-- ================= FEEDBACK ================= -->
+<div class="card">
+<input id="feedbackName" placeholder="Your name">
+<input id="feedbackEmail" placeholder="Your email">
 
-<section id="feedback">
+<select id="feedbackRating">
+<option value="5">⭐⭐⭐⭐⭐</option>
+<option value="4">⭐⭐⭐⭐</option>
+<option value="3">⭐⭐⭐</option>
+<option value="2">⭐⭐</option>
+<option value="1">⭐</option>
+</select>
 
-  <div class="heading">
+<textarea id="feedbackMessage" placeholder="Tell us about your experience"></textarea>
 
-    <small>FEEDBACK</small>
-
-    <h2>Client Love</h2>
-
-    <p>
-      Tell us about your experience.
-    </p>
-
-  </div>
-
-
-  <div
-    class="reviews"
-    id="reviewsList">
-
-  </div>
-
-
-  <div style="max-width:600px;margin:35px auto">
-
-    <textarea
-      id="feedbackText"
-      placeholder="Write your feedback...">
-    </textarea>
-
-    <button
-      class="btn primary"
-      onclick="submitFeedback()">
-      Submit Feedback
-    </button>
-
-  </div>
-
+<button class="primary" onclick="sendFeedback()">Send Feedback</button>
+</div>
 </section>
 
+<!-- AI -->
+<section id="ai" class="page">
+<h1>🤖 Glow Up AI Assistant</h1>
 
-<!-- ================= ADMIN ================= -->
+<div class="card">
+<div id="aiMessages" class="chatbox">
+<div class="message ai">
+Hi! I'm the Glow Up Assistant. Ask me about services, prices, bookings or the studio. 💄
+</div>
+</div>
 
-<section class="admin" id="admin">
-
-  <div class="heading">
-
-    <small>STUDIO CONTROL</small>
-
-    <h2>Studio Dashboard</h2>
-
-    <p>
-      Enter the studio secret code to open the controls.
-    </p>
-
-  </div>
-
-
-  <div class="adminBox">
-
-
-    <!-- ADMIN LOGIN -->
-
-    <div
-      id="adminLogin"
-      class="adminLogin">
-
-      <h3>🔐 Studio Access</h3>
-
-      <p style="color:#cdbcc5;margin-bottom:15px">
-        Enter the secret studio code.
-      </p>
-
-      <input
-        id="adminCode"
-        type="password"
-        placeholder="Secret code">
-
-      <button
-        class="btn primary"
-        onclick="adminLogin()">
-        Enter Studio
-      </button>
-
-      <p
-        id="adminMessage"
-        style="color:#f2a8c4;margin-top:10px">
-      </p>
-
-    </div>
-
-
-    <!-- ADMIN DASHBOARD -->
-
-    <div
-      id="adminDashboard"
-      class="hidden">
-
-      <div class="adminStats">
-
-        <div class="stat">
-          <strong id="totalCount">0</strong>
-          Appointments
-        </div>
-
-        <div class="stat">
-          <strong id="pendingCount">0</strong>
-          Pending
-        </div>
-
-        <div class="stat">
-          <strong id="acceptedCount">0</strong>
-          Accepted
-        </div>
-
-        <div class="stat">
-          <strong id="warningCount">0</strong>
-          Warnings
-        </div>
-
-      </div>
-
-
-      <button
-        class="action accept"
-        onclick="renderAppointments()">
-        🔄 Refresh
-      </button>
-
-      <button
-        class="action cancel"
-        onclick="clearCompleted()">
-        🗑️ Clear Completed
-      </button>
-
-      <button
-        class="action warn"
-        onclick="clearWarnings()">
-        ⚠️ Reset Warnings
-      </button>
-
-
-      <div
-        id="appointments"
-        style="margin-top:20px">
-      </div>
-
-    </div>
-
-  </div>
-
+<input id="aiInput" placeholder="Ask something...">
+<button class="primary" onclick="askAI()">Ask AI</button>
+</div>
 </section>
 
+<!-- NOTIFICATIONS -->
+<section id="notifications" class="page">
+<h1>🔔 Notifications</h1>
 
-<!-- ================= FOOTER ================= -->
+<div class="card">
+<label>
+<input type="checkbox" id="notificationToggle" checked onchange="toggleNotifications()">
+ Receive notifications
+</label>
 
-<footer>
+<div id="notificationList" style="margin-top:20px">
+No notifications yet.
+</div>
+</div>
+</section>
 
-  <p>
-    © 2026 GLOW up Gurpreet Kaur Makeup & Beauty Studio
-  </p>
+<!-- ADMIN -->
+<section id="admin" class="page">
+<h1>👑 Admin Dashboard</h1>
 
-  <p style="margin-top:10px">
+<div class="card">
+<p>Admin access</p>
+<input id="adminCode" type="password" placeholder="Enter admin code">
+<button class="primary" onclick="adminLogin()">Enter Admin</button>
+</div>
 
-    <a
-      href="https://www.instagram.com/gurpreetmakeup204/"
-      target="_blank">
-      Instagram @gurpreetmakeup204
-    </a>
+<div id="adminPanel" class="admin-only">
 
-  </p>
+<h2>📅 Appointments</h2>
+<div id="adminAppointments"></div>
 
-</footer>
+<h2 style="margin-top:30px">⭐ Feedback</h2>
+<div id="adminFeedback"></div>
 
+<h2 style="margin-top:30px">⚠️ Moderation</h2>
+<div class="card">
+<input id="moderationEmail" placeholder="Customer email">
+<button class="primary" onclick="warnUser()">Give Warning</button>
+<button class="primary" onclick="banUser()">Ban</button>
+<button class="primary" onclick="unbanUser()">Unban</button>
+</div>
+
+</div>
+</section>
 
 <script>
+/* ==============================
+   SUPABASE CONNECTION
+================================ */
 
-/* ==========================================
-   LOADING SCREEN
-========================================== */
+const SUPABASE_URL =
+"https://dmphmpjfvrhtrqwogqts.supabase.co";
 
-setTimeout(function(){
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_YOUR_PUBLISHABLE_KEY_HERE";
 
-  document
-    .getElementById("loader")
-    .classList.add("hide");
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
 
-},5000);
+/* ==============================
+   BASIC NAVIGATION
+================================ */
 
+function showPage(id){
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
 
-/* ==========================================
-   DATA
-========================================== */
+  document.getElementById(id)
+    .classList.add("active");
 
-let users =
-  JSON.parse(
-    localStorage.getItem("glowUsers") || "[]"
-  );
-
-let currentUser =
-  JSON.parse(
-    localStorage.getItem("glowCurrentUser") || "null"
-  );
-
-let appointments =
-  JSON.parse(
-    localStorage.getItem("glowAppointments") || "[]"
-  );
-
-let messages =
-  JSON.parse(
-    localStorage.getItem("glowMessages") || "[]"
-  );
-
-let reviews =
-  JSON.parse(
-    localStorage.getItem("glowReviews") || "[]"
-  );
-
-let warnings =
-  Number(
-    localStorage.getItem("glowWarnings") || 0
-  );
-
-
-/* ==========================================
-   SAVE
-========================================== */
-
-function save(){
-
-  localStorage.setItem(
-    "glowUsers",
-    JSON.stringify(users)
-  );
-
-  localStorage.setItem(
-    "glowCurrentUser",
-    JSON.stringify(currentUser)
-  );
-
-  localStorage.setItem(
-    "glowAppointments",
-    JSON.stringify(appointments)
-  );
-
-  localStorage.setItem(
-    "glowMessages",
-    JSON.stringify(messages)
-  );
-
-  localStorage.setItem(
-    "glowReviews",
-    JSON.stringify(reviews)
-  );
-
-  localStorage.setItem(
-    "glowWarnings",
-    warnings
-  );
-
+  if(id==="chat") loadChat();
+  if(id==="notifications") loadNotifications();
+  if(id==="account") loadMyAppointments();
 }
 
+/* ==============================
+   TOAST
+================================ */
 
-/* ==========================================
-   ACCOUNTS
-========================================== */
+function toast(message){
+  const t=document.getElementById("toast");
+  t.textContent=message;
+  t.style.display="block";
 
-function showAccount(type){
-
-  const login =
-    document.getElementById("loginForm");
-
-  const signup =
-    document.getElementById("signupForm");
-
-  const loginTab =
-    document.getElementById("loginTab");
-
-  const signupTab =
-    document.getElementById("signupTab");
-
-
-  if(type==="login"){
-
-    login.classList.remove("hidden");
-    signup.classList.add("hidden");
-
-    loginTab.classList.add("active");
-    signupTab.classList.remove("active");
-
-  }else{
-
-    signup.classList.remove("hidden");
-    login.classList.add("hidden");
-
-    signupTab.classList.add("active");
-    loginTab.classList.remove("active");
-
-  }
-
+  setTimeout(()=>{
+    t.style.display="none";
+  },3500);
 }
 
+/* ==============================
+   ACCOUNT
+================================ */
 
-function createAccount(){
+function saveAccount(){
+  const name=document.getElementById("accountName").value.trim();
+  const email=document.getElementById("accountEmail").value.trim();
 
-  const name =
-    document.getElementById("signupName").value.trim();
-
-  const email =
-    document.getElementById("signupEmail").value.trim().toLowerCase();
-
-  const password =
-    document.getElementById("signupPassword").value;
-
-
-  if(!name || !email || !password){
-
-    document.getElementById("signupMessage").textContent =
-      "Please fill everything.";
-
+  if(!name || !email){
+    toast("Enter your name and email.");
     return;
   }
 
-
-  if(users.some(u=>u.email===email)){
-
-    document.getElementById("signupMessage").textContent =
-      "An account with this email already exists.";
-
-    return;
-  }
-
-
-  const user = {
-    id:Date.now(),
-    name:name,
-    email:email,
-    password:password
-  };
-
-
-  users.push(user);
-
-  currentUser = {
-    id:user.id,
-    name:user.name,
-    email:user.email
-  };
-
-
-  save();
-  updateAccountUI();
-
-  document.getElementById("signupMessage").textContent =
-    "Account created successfully! ✨";
-
-}
-
-
-function loginUser(){
-
-  const email =
-    document.getElementById("loginEmail").value.trim().toLowerCase();
-
-  const password =
-    document.getElementById("loginPassword").value;
-
-
-  const user =
-    users.find(
-      u=>u.email===email &&
-         u.password===password
-    );
-
-
-  if(!user){
-
-    document.getElementById("loginMessage").textContent =
-      "Wrong email or password.";
-
-    return;
-  }
-
-
-  currentUser = {
-    id:user.id,
-    name:user.name,
-    email:user.email
-  };
-
-
-  save();
-  updateAccountUI();
-
-  document.getElementById("loginMessage").textContent =
-    "Logged in! ✨";
-
-}
-
-
-function logoutUser(){
-
-  currentUser=null;
-
-  save();
-  updateAccountUI();
-
-}
-
-
-function updateAccountUI(){
-
-  const current =
-    document.getElementById("currentUser");
-
-  if(currentUser){
-
-    document
-      .getElementById("userName")
-      .textContent=currentUser.name;
-
-    current.classList.remove("hidden");
-
-  }else{
-
-    current.classList.add("hidden");
-
-  }
-
-}
-
-
-/* ==========================================
-   BOOKING
-========================================== */
-
-function bookAppointment(e){
-
-  e.preventDefault();
-
-
-  const appointment={
-
-    id:Date.now(),
-
-    userId:
-      currentUser
-      ? currentUser.id
-      : null,
-
-    name:
-      document.getElementById("bName").value.trim(),
-
-    email:
-      document.getElementById("bEmail").value.trim(),
-
-    phone:
-      document.getElementById("bPhone").value.trim(),
-
-    date:
-      document.getElementById("bDate").value,
-
-    service:
-      document.getElementById("bService").value,
-
-    message:
-      document.getElementById("bMessage").value.trim(),
-
-    status:"Pending"
-
-  };
-
-
-  appointments.push(appointment);
-
-  save();
-  renderAppointments();
-
-
-  e.target.reset();
-
-
-  alert(
-    "Appointment sent successfully! 💄✨\n\nStatus: Pending"
+  localStorage.setItem(
+    "glow_account",
+    JSON.stringify({name,email})
   );
 
+  toast("Account saved.");
 }
 
+function getAccount(){
+  try{
+    return JSON.parse(
+      localStorage.getItem("glow_account")
+    );
+  }catch{
+    return null;
+  }
+}
 
-/* ==========================================
-   APPOINTMENT ACTIONS
-========================================== */
+/* ==============================
+   APPOINTMENTS
+================================ */
 
-function acceptAppointment(id){
+async function submitAppointment(){
 
-  const a =
-    appointments.find(x=>x.id===id);
+  const customer_name=
+    document.getElementById("customerName").value.trim();
 
-  if(a){
+  const customer_email=
+    document.getElementById("customerEmail").value.trim();
 
-    a.status="Accepted";
+  const customer_phone=
+    document.getElementById("customerPhone").value.trim();
 
-    save();
-    renderAppointments();
+  const service=
+    document.getElementById("service").value;
 
+  const appointment_date=
+    document.getElementById("appointmentDate").value;
+
+  const appointment_time=
+    document.getElementById("appointmentTime").value;
+
+  const message=
+    document.getElementById("appointmentMessage").value.trim();
+
+  if(!customer_name ||
+     !customer_email ||
+     !service ||
+     !appointment_date ||
+     !appointment_time){
+
+    toast("Please fill all required fields.");
+    return;
   }
 
-}
+  const {data,error} =
+    await supabaseClient
+      .from("appointments")
+      .insert({
+        customer_name,
+        customer_email,
+        customer_phone,
+        service,
+        appointment_date,
+        appointment_time,
+        message
+      })
+      .select()
+      .single();
 
-
-function completeAppointment(id){
-
-  const a =
-    appointments.find(x=>x.id===id);
-
-  if(a){
-
-    a.status="Completed";
-
-    save();
-    renderAppointments();
-
+  if(error){
+    console.error(error);
+    toast("Could not submit appointment.");
+    return;
   }
 
+  await supabaseClient
+    .from("notifications")
+    .insert({
+      title:"New Appointment",
+      message:
+        `${customer_name} requested ${service} on ${appointment_date} at ${appointment_time}.`,
+      notification_type:"appointment"
+    });
+
+  toast("🎉 Appointment submitted successfully!");
+
+  document.getElementById("appointmentMessage").value="";
 }
 
+/* ==============================
+   MY APPOINTMENTS
+================================ */
 
-function cancelAppointment(id){
+async function loadMyAppointments(){
 
-  appointments =
-    appointments.filter(
-      x=>x.id!==id
-    );
+  const account=getAccount();
 
-  save();
-  renderAppointments();
+  if(!account){
+    document.getElementById("myAppointments").innerHTML=
+      "Save your account first.";
+    return;
+  }
 
+  const {data,error} =
+    await supabaseClient
+      .from("appointments")
+      .select("*")
+      .eq("customer_email",account.email)
+      .order("created_at",{ascending:false});
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  const box=document.getElementById("myAppointments");
+
+  if(!data.length){
+    box.innerHTML="No appointments yet.";
+    return;
+  }
+
+  box.innerHTML=data.map(a=>`
+    <div class="item">
+      <b>${escapeHTML(a.service)}</b><br>
+      ${escapeHTML(a.appointment_date)}
+      at ${escapeHTML(a.appointment_time)}
+      <br>
+      <span class="status">${escapeHTML(a.status)}</span>
+    </div>
+  `).join("");
 }
 
+/* ==============================
+   CHAT
+================================ */
 
-function clearCompleted(){
+async function sendChat(){
 
-  appointments =
-    appointments.filter(
-      x=>x.status!=="Completed"
-    );
+  const sender_name=
+    document.getElementById("chatName").value.trim();
 
-  save();
-  renderAppointments();
+  const sender_email=
+    document.getElementById("chatEmail").value.trim();
 
+  const message=
+    document.getElementById("chatText").value.trim();
+
+  if(!sender_name || !message){
+    toast("Enter your name and message.");
+    return;
+  }
+
+  const {error}=
+    await supabaseClient
+      .from("chat_messages")
+      .insert({
+        sender_name,
+        sender_email,
+        message
+      });
+
+  if(error){
+    console.error(error);
+    toast("Message failed.");
+    return;
+  }
+
+  document.getElementById("chatText").value="";
+  loadChat();
 }
 
+async function loadChat(){
 
-/* ==========================================
+  const {data,error}=
+    await supabaseClient
+      .from("chat_messages")
+      .select("*")
+      .order("created_at",{ascending:true})
+      .limit(100);
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("chatMessages").innerHTML=
+    data.map(m=>`
+      <div class="message">
+        <b>${escapeHTML(m.sender_name)}</b><br>
+        ${escapeHTML(m.message)}
+      </div>
+    `).join("");
+}
+
+/* ==============================
+   FEEDBACK
+================================ */
+
+async function sendFeedback(){
+
+  const customer_name=
+    document.getElementById("feedbackName").value.trim();
+
+  const customer_email=
+    document.getElementById("feedbackEmail").value.trim();
+
+  const rating=
+    Number(document.getElementById("feedbackRating").value);
+
+  const message=
+    document.getElementById("feedbackMessage").value.trim();
+
+  if(!customer_name || !message){
+    toast("Please fill your name and feedback.");
+    return;
+  }
+
+  const {error}=
+    await supabaseClient
+      .from("feedback")
+      .insert({
+        customer_name,
+        customer_email,
+        rating,
+        message
+      });
+
+  if(error){
+    console.error(error);
+    toast("Feedback failed.");
+    return;
+  }
+
+  toast("⭐ Thank you for your feedback!");
+
+  document.getElementById("feedbackMessage").value="";
+}
+
+/* ==============================
+   NOTIFICATIONS
+================================ */
+
+function toggleNotifications(){
+
+  const enabled=
+    document.getElementById("notificationToggle").checked;
+
+  localStorage.setItem(
+    "glow_notifications",
+    enabled ? "on":"off"
+  );
+
+  toast(
+    enabled ?
+    "Notifications enabled 🔔":
+    "Notifications disabled 🔕"
+  );
+}
+
+async function loadNotifications(){
+
+  const enabled=
+    localStorage.getItem("glow_notifications")!=="off";
+
+  document.getElementById("notificationToggle").checked=
+    enabled;
+
+  const {data,error}=
+    await supabaseClient
+      .from("notifications")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(30);
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("notificationList").innerHTML=
+    data.length ?
+    data.map(n=>`
+      <div class="item">
+        <b>${escapeHTML(n.title)}</b>
+        <br>${escapeHTML(n.message)}
+        <br>
+        <small>${new Date(n.created_at).toLocaleString()}</small>
+      </div>
+    `).join("")
+    :
+    "No notifications.";
+}
+
+/* ==============================
    ADMIN
-========================================== */
+================================ */
 
 /*
-  SIMPLE PROTOTYPE SECRET CODE.
   IMPORTANT:
-  Anyone who can inspect this public website
-  can technically discover this code.
+  Do NOT put your private password
+  or service-role key here.
+
+  This is intentionally a placeholder.
+  For a real production admin system,
+  admin access should be protected server-side.
 */
 
-const SECRET_ADMIN_CODE =
-  "GLOW-4755-UP";
-
+const ADMIN_DEMO_CODE="CHANGE_THIS_ADMIN_CODE";
 
 function adminLogin(){
 
-  const code =
+  const entered=
     document.getElementById("adminCode").value;
 
-
-  if(code===SECRET_ADMIN_CODE){
-
-    document
-      .getElementById("adminLogin")
-      .classList.add("hidden");
-
-    document
-      .getElementById("adminDashboard")
-      .classList.remove("hidden");
-
-    renderAppointments();
-
-  }else{
-
-    document
-      .getElementById("adminMessage")
-      .textContent =
-      "Wrong studio code.";
-
-  }
-
-}
-
-
-/* ==========================================
-   ADMIN APPOINTMENTS
-========================================== */
-
-function renderAppointments(){
-
-  const box =
-    document.getElementById("appointments");
-
-
-  if(!box)return;
-
-
-  if(!appointments.length){
-
-    box.innerHTML=`
-      <div class="appointment">
-        No appointments yet 📅
-      </div>
-    `;
-
-  }else{
-
-    box.innerHTML =
-      appointments.map(a=>{
-
-        let buttons="";
-
-
-        if(a.status==="Pending"){
-
-          buttons+=`
-            <button
-              class="action accept"
-              onclick="acceptAppointment(${a.id})">
-              ✅ Accept
-            </button>
-          `;
-
-        }
-
-
-        if(a.status==="Accepted"){
-
-          buttons+=`
-            <button
-              class="action complete"
-              onclick="completeAppointment(${a.id})">
-              🏁 Complete
-            </button>
-          `;
-
-        }
-
-
-        buttons+=`
-
-          <button
-            class="action cancel"
-            onclick="cancelAppointment(${a.id})">
-            ❌ Cancel
-          </button>
-
-          <button
-            class="action warn"
-            onclick="warnUser()">
-            ⚠️ Warn
-          </button>
-
-          <button
-            class="action ban"
-            onclick="banUser()">
-            🚫 Ban
-          </button>
-
-        `;
-
-
-        return`
-
-          <div class="appointment">
-
-            <h3>
-              ${safe(a.name)}
-            </h3>
-
-            <p>
-              📧 ${safe(a.email)}<br>
-              📞 ${safe(a.phone)}<br>
-              📅 ${safe(a.date)}<br>
-              💄 ${safe(a.service)}
-            </p>
-
-            ${
-              a.message
-              ? `<p>💬 ${safe(a.message)}</p>`
-              : ""
-            }
-
-            <span class="status ${safe(a.status)}">
-              ${safe(a.status)}
-            </span>
-
-            <div class="actions">
-              ${buttons}
-            </div>
-
-          </div>
-
-        `;
-
-      }).join("");
-
-  }
-
-
-  updateStats();
-
-}
-
-
-function updateStats(){
-
-  const total =
-    document.getElementById("totalCount");
-
-  if(!total)return;
-
-
-  total.textContent =
-    appointments.length;
-
-  document.getElementById("pendingCount").textContent =
-    appointments.filter(
-      x=>x.status==="Pending"
-    ).length;
-
-  document.getElementById("acceptedCount").textContent =
-    appointments.filter(
-      x=>x.status==="Accepted"
-    ).length;
-
-  document.getElementById("warningCount").textContent =
-    warnings;
-
-}
-
-
-/* ==========================================
-   WARNINGS
-========================================== */
-
-function warnUser(){
-
-  warnings++;
-
-  save();
-  updateStats();
-
-
-  if(warnings>6){
-
-    alert(
-      "⚠️ More than 6 warnings.\n\n" +
-      "User should be removed from the studio."
-    );
-
-  }else{
-
-    alert(
-      "⚠️ Warning issued.\n\n" +
-      "Total warnings: "+warnings
-    );
-
-  }
-
-}
-
-
-function banUser(){
-
-  if(confirm(
-    "Remove this user from the studio?"
-  )){
-
-    alert(
-      "🚫 User marked as banned."
-    );
-
-  }
-
-}
-
-
-function clearWarnings(){
-
-  warnings=0;
-
-  save();
-  updateStats();
-
-}
-
-
-/* ==========================================
-   CHAT
-========================================== */
-
-function sendMessage(){
-
-  const input =
-    document.getElementById("chatText");
-
-  const text =
-    input.value.trim();
-
-
-  if(!text)return;
-
-
-  const message={
-
-    id:Date.now(),
-
-    text:text,
-
-    owner:
-      currentUser
-      ? currentUser.id
-      : "guest"
-
-  };
-
-
-  messages.push(message);
-
-  save();
-  renderMessages();
-
-  input.value="";
-
-}
-
-
-function deleteMessage(id){
-
-  const message =
-    messages.find(
-      x=>x.id===id
-    );
-
-
-  if(!message)return;
-
-
-  /*
-    Users can delete their own messages.
-    Admin can also moderate later.
-  */
-
-  if(
-    message.owner!=="guest" &&
-    (!currentUser ||
-     message.owner!==currentUser.id)
-  ){
-
+  if(entered!==ADMIN_DEMO_CODE){
+    toast("Incorrect admin code.");
     return;
   }
 
+  document.getElementById("adminPanel")
+    .style.display="block";
 
-  messages =
-    messages.filter(
-      x=>x.id!==id
-    );
+  loadAdminAppointments();
+  loadAdminFeedback();
 
-  save();
-  renderMessages();
-
+  toast("👑 Admin access enabled.");
 }
 
+async function loadAdminAppointments(){
 
-function renderMessages(){
+  const {data,error}=
+    await supabaseClient
+      .from("appointments")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-  const box =
-    document.getElementById("messages");
+  if(error){
+    console.error(error);
+    return;
+  }
 
+  document.getElementById("adminAppointments").innerHTML=
+    data.map(a=>`
+      <div class="card">
+        <b>${escapeHTML(a.customer_name)}</b>
+        <br>
+        Service: ${escapeHTML(a.service)}
+        <br>
+        Date: ${escapeHTML(a.appointment_date)}
+        <br>
+        Time: ${escapeHTML(a.appointment_time)}
+        <br>
+        Email: ${escapeHTML(a.customer_email)}
+        <br>
+        Phone: ${escapeHTML(a.customer_phone||"Not provided")}
+        <br>
+        Status:
+        <span class="status">${escapeHTML(a.status)}</span>
 
-  box.innerHTML=`
-    <div class="chatMessage">
-      💄 Welcome to GLOW up Gurpreet Kaur!
+        <br><br>
+
+        <button class="primary"
+          onclick="changeAppointmentStatus('${a.id}','accepted')">
+          Accept
+        </button>
+
+        <button class="primary"
+          onclick="changeAppointmentStatus('${a.id}','completed')">
+          Complete
+        </button>
+
+        <button class="primary"
+          onclick="changeAppointmentStatus('${a.id}','cancelled')">
+          Cancel
+        </button>
+      </div>
+    `).join("");
+}
+
+async function changeAppointmentStatus(id,status){
+
+  const {error}=
+    await supabaseClient
+      .from("appointments")
+      .update({status})
+      .eq("id",id);
+
+  if(error){
+    console.error(error);
+    toast("Could not update appointment.");
+    return;
+  }
+
+  toast("Appointment updated.");
+  loadAdminAppointments();
+}
+
+async function loadAdminFeedback(){
+
+  const {data,error}=
+    await supabaseClient
+      .from("feedback")
+      .select("*")
+      .order("created_at",{ascending:false});
+
+  if(error)return;
+
+  document.getElementById("adminFeedback").innerHTML=
+    data.map(f=>`
+      <div class="card">
+        <b>${escapeHTML(f.customer_name)}</b>
+        <br>Rating: ${"⭐".repeat(f.rating||0)}
+        <br>${escapeHTML(f.message)}
+      </div>
+    `).join("");
+}
+
+/* ==============================
+   MODERATION
+================================ */
+
+async function warnUser(){
+
+  const email=
+    document.getElementById("moderationEmail")
+      .value.trim();
+
+  if(!email)return;
+
+  const {data}=await supabaseClient
+    .from("user_moderation")
+    .select("*")
+    .eq("user_email",email)
+    .maybeSingle();
+
+  if(data){
+
+    const count=data.warning_count+1;
+
+    await supabaseClient
+      .from("user_moderation")
+      .update({
+        warning_count:count,
+        banned:count>=7,
+        updated_at:new Date().toISOString()
+      })
+      .eq("user_email",email);
+
+  }else{
+
+    await supabaseClient
+      .from("user_moderation")
+      .insert({
+        user_email:email,
+        warning_count:1
+      });
+  }
+
+  toast("⚠️ Warning added.");
+}
+
+async function banUser(){
+
+  const email=
+    document.getElementById("moderationEmail")
+      .value.trim();
+
+  if(!email)return;
+
+  const {data}=await supabaseClient
+    .from("user_moderation")
+    .select("*")
+    .eq("user_email",email)
+    .maybeSingle();
+
+  if(data){
+    await supabaseClient
+      .from("user_moderation")
+      .update({
+        banned:true,
+        updated_at:new Date().toISOString()
+      })
+      .eq("user_email",email);
+  }else{
+    await supabaseClient
+      .from("user_moderation")
+      .insert({
+        user_email:email,
+        banned:true
+      });
+  }
+
+  toast("🚫 User banned.");
+}
+
+async function unbanUser(){
+
+  const email=
+    document.getElementById("moderationEmail")
+      .value.trim();
+
+  if(!email)return;
+
+  const {error}=
+    await supabaseClient
+      .from("user_moderation")
+      .update({
+        banned:false,
+        updated_at:new Date().toISOString()
+      })
+      .eq("user_email",email);
+
+  if(error){
+    console.error(error);
+    toast("Could not unban user.");
+    return;
+  }
+
+  toast("♻️ User unbanned.");
+}
+
+/* ==============================
+   AI ASSISTANT
+================================ */
+
+function askAI(){
+
+  const input=
+    document.getElementById("aiInput");
+
+  const question=
+    input.value.trim().toLowerCase();
+
+  if(!question)return;
+
+  const box=
+    document.getElementById("aiMessages");
+
+  box.innerHTML+=`
+    <div class="message">
+      <b>You:</b> ${escapeHTML(input.value)}
     </div>
   `;
 
+  let answer=
+    "I can help with services, prices, appointments and studio information. 💄";
 
-  messages.forEach(m=>{
+  if(question.includes("bridal"))
+    answer="Our Bridal Makeup starts at ₹24,999. 💍";
 
-    const div =
-      document.createElement("div");
+  else if(question.includes("party"))
+    answer="Party Makeup is ₹4,499.";
 
-    div.className="chatMessage";
+  else if(question.includes("reception"))
+    answer="Reception Makeup is ₹7,999.";
 
-    div.textContent=m.text;
+  else if(question.includes("engagement"))
+    answer="Engagement Makeup is ₹9,999.";
 
+  else if(question.includes("book") ||
+          question.includes("appointment"))
+    answer="Go to the 📅 Book tab and choose your service, date and time.";
 
-    const del =
-      document.createElement("button");
+  else if(question.includes("price") ||
+          question.includes("service"))
+    answer="You can see all services and prices in the 💄 Services tab.";
 
-    del.className="deleteMsg";
+  box.innerHTML+=`
+    <div class="message ai">
+      <b>Glow Up AI:</b> ${answer}
+    </div>
+  `;
 
-    del.textContent="×";
-
-    del.title="Delete message";
-
-
-    del.onclick =
-      ()=>deleteMessage(m.id);
-
-
-    div.appendChild(del);
-
-    box.appendChild(div);
-
-  });
-
-
-  box.scrollTop =
-    box.scrollHeight;
-
-}
-
-
-/* ==========================================
-   FEEDBACK
-========================================== */
-
-function submitFeedback(){
-
-  const input =
-    document.getElementById("feedbackText");
-
-  const text =
-    input.value.trim();
-
-
-  if(!text){
-
-    alert("Please write some feedback.");
-
-    return;
-
-  }
-
-
-  const review={
-
-    id:Date.now(),
-
-    name:
-      currentUser
-      ? currentUser.name
-      : "Guest",
-
-    text:text
-
-  };
-
-
-  reviews.push(review);
-
-  save();
-  renderReviews();
-
+  box.scrollTop=box.scrollHeight;
   input.value="";
-
-
-  alert(
-    "Thank you for your feedback! ⭐"
-  );
-
 }
 
+/* ==============================
+   REALTIME
+================================ */
 
-function renderReviews(){
+supabaseClient
+  .channel("glow-up-realtime")
+  .on(
+    "postgres_changes",
+    {
+      event:"*",
+      schema:"public",
+      table:"appointments"
+    },
+    payload=>{
+      toast("🔔 Appointment data updated!");
+      loadMyAppointments();
+      loadAdminAppointments();
+    }
+  )
+  .on(
+    "postgres_changes",
+    {
+      event:"INSERT",
+      schema:"public",
+      table:"chat_messages"
+    },
+    payload=>{
+      loadChat();
+      toast("💬 New chat message!");
+    }
+  )
+  .on(
+    "postgres_changes",
+    {
+      event:"INSERT",
+      schema:"public",
+      table:"notifications"
+    },
+    payload=>{
+      loadNotifications();
+      toast("🔔 New notification!");
+    }
+  )
+  .subscribe();
 
-  const box =
-    document.getElementById("reviewsList");
+/* ==============================
+   SECURITY HELPERS
+================================ */
 
-
-  if(!reviews.length){
-
-    box.innerHTML=`
-      <div class="review">
-        <div class="stars">★★★★★</div>
-        <p>
-          Be the first to leave feedback! ✨
-        </p>
-      </div>
-    `;
-
-    return;
-  }
-
-
-  box.innerHTML =
-    reviews.map(r=>`
-
-      <div class="review">
-
-        <div class="stars">
-          ★★★★★
-        </div>
-
-        <b>
-          ${safe(r.name)}
-        </b>
-
-        <p style="margin-top:8px">
-          ${safe(r.text)}
-        </p>
-
-      </div>
-
-    `).join("");
-
-}
-
-
-/* ==========================================
-   SAFETY
-========================================== */
-
-function safe(text){
-
-  return String(text)
+function escapeHTML(value){
+  return String(value??"")
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
-
 }
 
+/* ==============================
+   STARTUP
+================================ */
 
-/* ==========================================
-   START
-========================================== */
+window.addEventListener("load",()=>{
 
-updateAccountUI();
-renderMessages();
-renderReviews();
+  const account=getAccount();
 
+  if(account){
+    document.getElementById("accountName").value=
+      account.name||"";
+
+    document.getElementById("accountEmail").value=
+      account.email||"";
+  }
+
+  setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+  },5000);
+
+  loadChat();
+});
 </script>
 
 </body>
