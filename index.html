@@ -989,22 +989,7 @@ async function changeAppointmentStatus(id,status,phone){
   loadAdminAppointments();
 }
 
-  const {error}=
-    await supabaseClient
-      .from("appointments")
-      .update({status})
-      .eq("id",id);
-
-  if(error){
-    console.error(error);
-    toast("Could not update appointment.");
-    return;
-  }
-
-  toast("Appointment updated.");
-  loadAdminAppointments();
-}
-
+  
 async function loadAdminFeedback(){
 
   const {data,error}=
